@@ -5,6 +5,9 @@
 /config
 /.pnp
 .pnp.js
+#key paths to hide
+.env
+keys.js
 
 # testing
 /coverage
