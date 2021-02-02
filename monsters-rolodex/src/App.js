@@ -18,6 +18,11 @@ class App extends React.Component {
         this.setState({ monsters: users });
       });
   }
+  // using arrow functions the scope of this will automatically be set to the place they were defined in the first place
+  handleChange = (e) => {
+    this.setState({ searchField: e.target.value });
+  };
+
   render() {
     const { monsters, searchField } = this.state;
     const filteredMonsters = monsters.filter((monster) => {
@@ -25,12 +30,11 @@ class App extends React.Component {
     });
     return (
       <div className="App">
+        <h1>Monsters Rolodex</h1>
         <SearchBox
           placeHolder="searchMonsters"
-          handleChange={(e) => this.setState({ searchField: e.target.value })}
+          handleChange={this.handleChange}
         />
-        <br />
-        <br />
         <br />
         <CardList monsters={filteredMonsters}></CardList>
         <></>
