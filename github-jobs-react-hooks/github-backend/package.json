@@ -1,0 +1,14 @@
+{
+  "name": "github-backend",
+  "version": "1.0.0",
+  "description": "github jobs api",
+  "main": "server.js",
+  "scripts": {
+    "startServer":"nodemon backend/server.js"
+  },
+  "author": "Nithin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -9,8 +9,7 @@ const ACTIONS = {
 //for development pupose to overcome CORS issue use below url in front of requesting url
 //we need a server to act as aproxy to get around cors
 //https://cors-anywhere.herokuapp.com
-const BASE_URL =
-  "https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json";
+const BASE_URL = "http://localhost:5000/api/githubJobs";
 // reducer function for useReducer
 function reducer(state, action) {
   switch (action.type) {
