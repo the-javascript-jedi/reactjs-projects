@@ -19,10 +19,12 @@ class PokeGame extends Component {
         let hand2=[...this.props.pokemon];        
         // loop till both arrays are of equal length
         while(hand1.length<hand2.length){
-            //randIx - get a random index from inside the array hand2
+            //randIx - get a random index from inside the array hand2.length
             //Math.floor gives lower decimal value // Math.floor(5.95) => 5
-            let randIx=Math.floor(Math.random()*hand2.length);
-            let randPokemon=hand2.splice(randIx,1)[0];
+            let randIx=Math.floor(Math.random()*hand2.length);           
+            //splice - we are removing a value from the array - so same value will not be repeated
+            let randPokemon=hand2.splice(randIx,1)[0];                      
+            console.log("randPokemon",randPokemon);                     
             // hand2.splice(randIx,1)[0] -  choose from an array of objects the first item in array
             hand1.push(randPokemon)
         }
@@ -34,7 +36,7 @@ class PokeGame extends Component {
 
         return (
             <div>
-               <h1>PokeGame</h1> <br/>
+               <h1 style={{textAlign:'center'}}>PokeGame</h1> <br/>
                <Pokedex pokemon={hand1} exp={exp1} isWinner={exp1>exp2}/>
                <Pokedex pokemon={hand2} exp={exp2} isWinner={exp2>exp1}/>
             </div>
