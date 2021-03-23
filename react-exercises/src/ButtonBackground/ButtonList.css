@@ -1,0 +1,11 @@
+.ButtonList {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+  padding: 15px;
+}
+button {
+  padding: 10px;
+  color: #000;
+  border: none;
+}
