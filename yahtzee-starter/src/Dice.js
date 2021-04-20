@@ -10,9 +10,13 @@ class Dice extends Component {
           <Die
             handleClick={this.props.handleClick}
             val={d}
+            //  locked : [false, true, false, false, false] -- locked is an arrray containing respective states whether dice is locked or not
             locked={this.props.locked[idx]}
             idx={idx}
             key={idx}
+            disabled={this.props.disabled}
+            //rolling is true for this die if this.props.rolling is true && if this individual die is not locked
+            rolling={this.props.rolling && !this.props.locked[idx]}
           />
         ))}
       </div>
