@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-const CommentBox = () => {
+import { connect } from "react-redux";
+// import action directory
+import * as actions from "actions";
+const CommentBox = (props) => {
   // state
   const [comment, setComment] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("form submitted", comment);
+    // we get the action and existing state as props when we wire up connect
+    props.saveComment(comment);
     setComment("");
     // TODO call and action creator and save the comment
   };
@@ -23,4 +28,7 @@ const CommentBox = () => {
     </form>
   );
 };
-export default CommentBox;
+// connect receives 2 arguments
+// first argument is mapStateToProps - current scenario we don't need access to existing state so null
+//second argument receives the action creator
+export default connect(null, actions)(CommentBox);

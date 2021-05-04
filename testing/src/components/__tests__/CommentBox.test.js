@@ -2,11 +2,17 @@ import React from "react";
 // for Full Dom rendering we need to use mount
 import { mount } from "enzyme";
 import CommentBox from "components/CommentBox";
+// root component contains provider and store
+import Root from "root";
 let wrapped;
 // beforeEach() - initialization is a location for some common setup that needs to be done, for every single test inside this file
 // it will assign a copy of our app component to wrapped variable
 beforeEach(() => {
-  wrapped = mount(<CommentBox />);
+  wrapped = mount(
+    <Root>
+      <CommentBox />
+    </Root>
+  );
 });
 // afterEach - cleanup is run after every single test is executed we can use it for cleanup
 afterEach(() => {
@@ -25,7 +31,11 @@ it("has a text area and a button", () => {
 describe("the text area", () => {
   // beforeEach inside describe will only modify the it functions in the describe block
   beforeEach(() => {
-    wrapped = mount(<CommentBox />);
+    wrapped = mount(
+      <Root>
+        <CommentBox />
+      </Root>
+    );
     //first argument is the event name to be simulated
     //second argument is a mock event object
     // in the front end code the event will be replaced by our mock event object and it can access event.target.value
