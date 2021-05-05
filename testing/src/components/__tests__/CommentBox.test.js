@@ -3,7 +3,7 @@ import React from "react";
 import { mount } from "enzyme";
 import CommentBox from "components/CommentBox";
 // root component contains provider and store
-import Root from "root";
+import Root from "Root";
 let wrapped;
 // beforeEach() - initialization is a location for some common setup that needs to be done, for every single test inside this file
 // it will assign a copy of our app component to wrapped variable

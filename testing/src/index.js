@@ -5,7 +5,7 @@ import App from "components/App";
 import reportWebVitals from "./reportWebVitals";
 // redux setup
 // root component contains provider and store
-import Root from "root";
+import Root from "Root";
 ReactDOM.render(
   <React.StrictMode>
     {/* into createStore we pass in list of reducers and initial state(currently empty object) */}

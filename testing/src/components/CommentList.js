@@ -1,5 +1,22 @@
 import React from "react";
-const CommentList = () => {
-  return <h4>Comment List</h4>;
+import { connect } from "react-redux";
+const CommentList = ({ comments }) => {
+  const renderComments = () => {
+    return comments.map((comment) => {
+      return <li key={comment}>{comment}</li>;
+    });
+  };
+  return (
+    <div>
+      <h4>Comment List</h4>
+      <div>
+        <ul>{renderComments()}</ul>
+      </div>
+    </div>
+  );
 };
-export default CommentList;
+function mapStateToProps(state) {
+  // state.comments comes from combineReducers key value
+  return { comments: state.comments };
+}
+export default connect(mapStateToProps)(CommentList);
