@@ -1,5 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
+//reduxPromise-used to handle asyncronous action creators, or action creators that try to make network requests
+import reduxPromise from "redux-promise";
 import reducers from "reducers";
 import { createStore, applyMiddleware } from "redux";
 // import thunk from "redux-thunk";
@@ -8,7 +10,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // we need to destructure the elements to get an initial state value if we directly set a initial state of props.initialState={} we will get an error during
 // we pass empty object to initialState so that other tests will not get affected else initial state will be undefined
 const Root = ({ initialState = {}, children }) => {
-  const middleware = [];
+  const middleware = [reduxPromise];
 
   const store = createStore(
     reducers,

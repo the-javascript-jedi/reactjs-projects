@@ -18,14 +18,18 @@ const CommentBox = (props) => {
     setComment(event.target.value);
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <h4>Comment Box</h4>
-      <h4>Add a Comment</h4>
-      <textarea onChange={handleChange} value={comment} />
-      <div>
-        <button>Submit Comment</button>
-      </div>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <h4>Comment Box</h4>
+        <h4>Add a Comment</h4>
+        <textarea onChange={handleChange} value={comment} />
+        <div>
+          <button>Submit Comment</button>
+        </div>
+      </form>
+      {/*props.fetchComments() is received from the redux action */}
+      <button onClick={() => props.fetchComments()}>Fetch Comments </button>
+    </div>
   );
 };
 // connect receives 2 arguments

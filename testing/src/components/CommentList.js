@@ -2,7 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 const CommentList = ({ comments }) => {
   const renderComments = () => {
+    console.log("state.comments", comments);
     return comments.map((comment) => {
+      console.log("comment", comment);
       return <li key={comment}>{comment}</li>;
     });
   };
