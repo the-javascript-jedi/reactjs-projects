@@ -28,7 +28,9 @@ const CommentBox = (props) => {
         </div>
       </form>
       {/*props.fetchComments() is received from the redux action */}
-      <button onClick={() => props.fetchComments()}>Fetch Comments </button>
+      <button className="fetch-comments" onClick={() => props.fetchComments()}>
+        Fetch Comments{" "}
+      </button>
     </div>
   );
 };

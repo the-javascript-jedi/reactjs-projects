@@ -19,13 +19,13 @@ afterEach(() => {
   wrapped.unmount();
 });
 
-it("has a text area and a button", () => {
+it("has a text area and two buttons", () => {
   // console.log(wrapped.find("textarea").length);
   // console.log(wrapped.find("button").length);
   // exactly one text area must be present
   expect(wrapped.find("textarea").length).toEqual(1);
   // exactly one button must be present
-  expect(wrapped.find("button").length).toEqual(1);
+  expect(wrapped.find("button").length).toEqual(2);
 });
 // describe can be used to group certain sets of test inside a single file
 describe("the text area", () => {
