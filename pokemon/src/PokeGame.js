@@ -43,5 +43,4 @@ class PokeGame extends Component {
         );
     }
 }
-
 export default PokeGame;

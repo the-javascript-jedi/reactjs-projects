@@ -3,7 +3,8 @@ import "./App.css";
 // import Lottery from './LotteryExercise/Lottery';
 // import CoinContainer from "./CoinFlipperExercise/CoinContainer";
 // import BoxContainer from "./ColorBoxesExercise/BoxContainer";
-import ButtonList from "./ButtonBackground/ButtonList";
+// import ButtonList from "./ButtonBackground/ButtonList";
+import NumberList from "./NumberList/NumberList";
 function App() {
   return (
     <div className="App">
@@ -16,7 +17,8 @@ function App() {
       {/* <CoinContainer /> */}
       {/* color box exercise */}
       {/* <BoxContainer /> */}
-      <ButtonList />
+      {/* <ButtonList /> */}
+      <NumberList />
     </div>
   );
 }
