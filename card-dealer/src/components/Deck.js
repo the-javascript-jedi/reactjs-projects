@@ -7,9 +7,6 @@ const Deck = () => {
   const [loading, setLoading] = useState(true);
   const [drawn, setDrawn] = useState([]);
   // make api request
-  useEffect(() => {
-    makeRequest();
-  }, []);
   const makeRequest = async () => {
     setLoading(true);
     try {
@@ -22,6 +19,10 @@ const Deck = () => {
       console.log("error");
     }
   };
+  useEffect(() => {
+    makeRequest();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   //  make new request to api on button click
   const getCard = async () => {
@@ -51,15 +52,26 @@ const Deck = () => {
       console.error("error", error);
     }
   };
-  //   create a deck of cards
+  // create a deck of cards
   const cards = drawn.map((c) => (
     <Card key={c.id} name={c.name} image={c.image} />
   ));
+  // displaying a loading screen or the cards
+  const displayCards = () => {
+    if (!loading) {
+      return cards;
+    } else {
+      return <p>Loading...</p>;
+    }
+  };
   return (
-    <div>
-      <h1>Card Dealer</h1>
-      <button onClick={() => getCard()}>Get Card</button>
-      <div className="Deck-cardArea">{cards}</div>
+    <div className="Deck">
+      <h1 className="Deck-title">♦ Card Dealer ♦</h1>
+      <h1 className="Deck-title subtitle">♦ A little demo made with React ♦</h1>
+      <button className="Deck-btn" onClick={() => getCard()}>
+        Get Card
+      </button>
+      <div className="Deck-cardArea">{displayCards()}</div>
     </div>
   );
 };

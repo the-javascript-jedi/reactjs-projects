@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import "./Card.css";
 
 const Card = (props) => {
@@ -9,15 +9,17 @@ const Card = (props) => {
   let yPos = Math.random() * 40 - 20;
   // dynamic transform styles
   let transform = `translate(${xPos}px, ${yPos}px) rotate(${angle}deg)`;
-  useEffect(() => {}, []);
-
+  //useRef -- we use useRef so that the transfrom value is not re-rendered for every state change
+  const renderTransform = useRef(transform);
   return (
-    <img
-      style={{ transform: transform }}
-      className="Card"
-      src={props.image}
-      alt={props.name}
-    />
+    <>
+      <img
+        style={{ transform: renderTransform.current }}
+        className="Card"
+        src={props.image}
+        alt={props.name}
+      />
+    </>
   );
 };
 export default Card;
