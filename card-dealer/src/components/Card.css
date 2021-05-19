@@ -1,0 +1,8 @@
+.Card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  /* we need to apply a transform property to each card with translate and rotate */
+  /* transform: translate(10px, 20px) rotate(20deg); */
+}
