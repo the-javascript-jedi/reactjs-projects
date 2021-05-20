@@ -19,6 +19,9 @@ const JokeList = () => {
   // state
   const [loading, setLoading] = useState(false);
   const [jokes, setJokes] = useState(jokesFromLocalStorage);
+  //declare a Set seenJokes for comparing duplicates
+  let seenJokes = new Set(jokes.map((j) => j.joke));
+  console.log("seenJokes", seenJokes);
   //useEffect(1) - make an api request
   useEffect(() => {
     if (jokes.length === 0) {
@@ -29,21 +32,28 @@ const JokeList = () => {
   //useEffect(2) - set localstorage with updated values on update of jokes array(i.e(Post is updated )or(new jokes are added from api))
   useEffect(() => {
     window.localStorage.setItem("jokes_ls", JSON.stringify(jokes));
+    //create a set and add joke text values from local storage or when jokes array is modified
   }, [jokes]);
   // makeRequest function
   const makeRequest = async () => {
     setLoading(true);
     // initialize a joke array
     let jokesArr = [];
+
     try {
-      //   console.log("inside try");
       while (jokesArr.length < JokeList.defaultProps.numJokesToGet) {
-        console.log("inside while");
+        console.log("requesting jokes from api...");
         // default response is text/html, we need to particularly specify the headers as application/json
         let response = await axios.get("https://icanhazdadjoke.com/", {
           headers: { Accept: "application/json" },
         });
-        jokesArr.push({ id: uuidv4(), joke: response.data.joke, votes: 0 });
+        let newJoke = response.data.joke;
+        // check the joke from api if it already exists in the set
+        if (!seenJokes.has(newJoke)) {
+          jokesArr.push({ id: uuidv4(), joke: response.data.joke, votes: 0 });
+        } else {
+          console.log("FOUND A DUPLICATE", newJoke);
+        }
       }
       console.log("jokesArr", jokesArr);
       //after fetch request is made to api update the existing array with new data from api
@@ -52,6 +62,8 @@ const JokeList = () => {
       setLoading(false);
     } catch (error) {
       console.error("error", error);
+      alert(error);
+      setLoading(false);
     }
   };
   // handleVote function will handle the votes
@@ -70,6 +82,8 @@ const JokeList = () => {
   };
   // display the Loader or JokeList
   const displayJokeList = () => {
+    // sort the jokes
+    let sortedJokes = jokes.sort((a, b) => b.votes - a.votes);
     // show loading icon or jokes data list
     if (loading) {
       return (
@@ -90,11 +104,12 @@ const JokeList = () => {
               alt="A laughing emojicon"
             />
             <button className="JokeList-getmore" onClick={() => handleClick()}>
-              get New Jokes
+              Fetch Jokes
             </button>
           </div>
           <div className="JokeList-jokes">
-            {jokes.map((single_joke) => (
+            {/* call the sorted jokes */}
+            {sortedJokes.map((single_joke) => (
               <Joke
                 key={single_joke.id}
                 votes={single_joke.votes}
