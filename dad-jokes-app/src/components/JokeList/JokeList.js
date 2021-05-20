@@ -10,14 +10,26 @@ const JokeList = () => {
   JokeList.defaultProps = {
     numJokesToGet: 10,
   };
+  //check if data exists in local storage and set the variable(jokesFromLocalStorage) to data from local storage or initialize as empty array []
+  var jokesFromLocalStorage =
+    JSON.parse(window.localStorage.getItem("jokes_ls")) === null
+      ? []
+      : JSON.parse(window.localStorage.getItem("jokes_ls"));
+  console.log("jokes_ls", JSON.parse(window.localStorage.getItem("jokes_ls")));
   // state
-  const [loading, setLoading] = useState(true);
-  const [jokes, setJokes] = useState([]);
-  // make an api request
+  const [loading, setLoading] = useState(false);
+  const [jokes, setJokes] = useState(jokesFromLocalStorage);
+  //useEffect(1) - make an api request
   useEffect(() => {
-    makeRequest();
+    if (jokes.length === 0) {
+      makeRequest();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  //useEffect(2) - set localstorage with updated values on update of jokes array(i.e(Post is updated )or(new jokes are added from api))
+  useEffect(() => {
+    window.localStorage.setItem("jokes_ls", JSON.stringify(jokes));
+  }, [jokes]);
   // makeRequest function
   const makeRequest = async () => {
     setLoading(true);
@@ -33,9 +45,11 @@ const JokeList = () => {
         });
         jokesArr.push({ id: uuidv4(), joke: response.data.joke, votes: 0 });
       }
-
       console.log("jokesArr", jokesArr);
-      setJokes(jokesArr);
+      //after fetch request is made to api update the existing array with new data from api
+      setJokes((oldArr) => [...oldArr, ...jokesArr]);
+      window.localStorage.setItem("jokes_ls", JSON.stringify(jokesArr));
+      setLoading(false);
     } catch (error) {
       console.error("error", error);
     }
@@ -49,30 +63,51 @@ const JokeList = () => {
       oldArr.map((j) => (j.id === id ? { ...j, votes: j.votes + delta } : j))
     );
   };
-  return (
-    <div className="JokeList">
-      <div className="JokeList-sidebar">
-        <h1 className="JokeList-title">
-          <span>Dad</span> Jokes
-        </h1>
-        <img
-          src="https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg"
-          alt="A laughing emojicon"
-        />
-        <button className="JokeList-getmore"></button>
-      </div>
-      <div className="JokeList-jokes">
-        {jokes.map((single_joke) => (
-          <Joke
-            key={single_joke.id}
-            votes={single_joke.votes}
-            text={single_joke.joke}
-            upvote={() => handleVote(single_joke.id, 1)}
-            downvote={() => handleVote(single_joke.id, -1)}
-          />
-        ))}
-      </div>
-    </div>
-  );
+  const handleClick = () => {
+    setLoading(true);
+    // make api request
+    makeRequest();
+  };
+  // display the Loader or JokeList
+  const displayJokeList = () => {
+    // show loading icon or jokes data list
+    if (loading) {
+      return (
+        <div className="JokeList-spinner">
+          <i className="far fa-8x fa-laugh fa-spin"></i>
+          <h1 className="JokeList-title">Loading...</h1>
+        </div>
+      );
+    } else {
+      return (
+        <div className="JokeList">
+          <div className="JokeList-sidebar">
+            <h1 className="JokeList-title">
+              <span>Dad</span> Jokes
+            </h1>
+            <img
+              src="https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg"
+              alt="A laughing emojicon"
+            />
+            <button className="JokeList-getmore" onClick={() => handleClick()}>
+              get New Jokes
+            </button>
+          </div>
+          <div className="JokeList-jokes">
+            {jokes.map((single_joke) => (
+              <Joke
+                key={single_joke.id}
+                votes={single_joke.votes}
+                text={single_joke.joke}
+                upvote={() => handleVote(single_joke.id, 1)}
+                downvote={() => handleVote(single_joke.id, -1)}
+              />
+            ))}
+          </div>
+        </div>
+      );
+    }
+  };
+  return <div>{displayJokeList()}</div>;
 };
 export default JokeList;
