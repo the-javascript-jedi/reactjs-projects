@@ -1,14 +1,7 @@
 import React from 'react'
+//interface for props
+import {IState as IProps} from '../App'
 
-// props for Interface
-interface IProps{
-    people:{
-        name:string,
-        age:number,
-        url:string,
-        note?:string
-    }[]
-}
 // const List= (props:IProps)- we can also specify the type of props
 const List:React.FC<IProps>= (props) => {
     //render list - returns type JSX.Element[] - (hower over the renderList keyword)

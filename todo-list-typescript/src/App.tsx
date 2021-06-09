@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import './App.css';
 import AddToList from './components/AddToList';
 import List from './components/List'
-interface IState{
+export interface IState{
   people:{
     name:string,
     age:number,
@@ -10,7 +10,6 @@ interface IState{
     note?:string
   }[]
 }
-
 function App() {
   //IState["people"]- we access the people object inside the interface IState
   //people is an array of type interface people
@@ -28,9 +27,9 @@ function App() {
       Add Players To Party         
       <br/>
     <List people={people}/>
-    <AddToList/>
+    {/* pass the state values as props */}
+    <AddToList people={people} setPeople={setPeople}/>
     </div>
   );
 }
-
 export default App;
