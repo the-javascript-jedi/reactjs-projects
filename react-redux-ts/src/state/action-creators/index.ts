@@ -23,7 +23,7 @@ export const withdrawMoney=(amount:number)=>{
     }
 }
 // Bankrupt Money Action Creator
-export const bankrupt=(amount:number)=>{
+export const bankrupt=()=>{
     return (dispatch:Dispatch<IAction>)=>{
         dispatch({
             type:ActionType.BANKRUPT,            
