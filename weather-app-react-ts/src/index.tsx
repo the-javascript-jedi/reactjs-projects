@@ -9,7 +9,7 @@ import '../node_modules/bulma/css/bulma.min.css';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+    <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
