@@ -9,7 +9,7 @@ interface RepositoriesState{
 const initialState={
     loading:false,
     error:null,
-    data:[]
+    data:[],
 }
 //we specify the return type based on the interface so that typescript will know that we always return the following object, a boolean loading value, a string or null error value and a data array of strings
 const reducer=(state:RepositoriesState=initialState,action:Action):RepositoriesState=>{

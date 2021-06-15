@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { useSelector } from 'react-redux';
+//use the useTypedSelector instead of useSelector
+import { useTypedSelector } from '../hooks/useTypedSelector';
 // custom hook gives access to dispatch function inside component
 import {useActions} from '../hooks/useActions';
 const RepositoriesList:React.FC=()=>{
@@ -8,7 +9,8 @@ const RepositoriesList:React.FC=()=>{
     //call the custom hook-and destructure the action
     const {searchRepositories}=useActions();
     //accessing the state
-    const {data,error,loading}=useSelector((state:any)=>state.repositories)
+    //use the useTypedSelector instead of useSelector hook
+    const {data,error,loading}=useTypedSelector((state)=>state.repositories)
     console.log("data",data);
     console.log("error",error);
     console.log("loading",loading);
@@ -24,6 +26,12 @@ const RepositoriesList:React.FC=()=>{
             <input type="text" onChange={e=>setTerm(e.target.value)}/>
             <button>Search</button>
         </form>
+        {/* error */}
+        {error&&<h3>{error}</h3>}
+        {/* loading */}
+        {loading&&<h3>{loading}</h3>}
+        {/* display data */}
+        {!error && !loading &&data.map((name)=><div>{name}</div>)}
     </div>
 }
 export default RepositoriesList;
