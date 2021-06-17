@@ -1,9 +1,12 @@
 import React from 'react'
+// types
+import {AnswerObject} from '../App';
 type Props={
     question:string;
     answers:string[];
-    callback:any;
-    userAnswer:any;
+    //hower in the App.tsx file on the props
+    callback:(e: React.MouseEvent<HTMLButtonElement>) => void;
+    userAnswer:AnswerObject|undefined;
     questionNr:number;
     totalQuestions:number;
 }
@@ -19,7 +22,8 @@ const QuestionCard:React.FC<Props> = ({question,answers,callback,userAnswer,ques
                     answers.map(answer=>(
                         <div key={answer}>
                             {/* disable the button based on the user answer */}
-                            <button disabled={userAnswer} onClick={callback}>
+                            {/* !!userAnswer - convert to boolean or use ternary expression to check userAnswer?true:false */}
+                            <button disabled={!!userAnswer} onClick={callback} value={answer}>
                                 <span dangerouslySetInnerHTML={{__html:answer}}></span>
                             </button>
                         </div>

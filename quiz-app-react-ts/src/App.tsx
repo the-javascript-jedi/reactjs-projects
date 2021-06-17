@@ -7,7 +7,7 @@ import {Difficulty,QuestionState} from './API'
 import {fetchQuizQuestions} from './API'
 const TOTAL_QUESTIONS=10;
 // type 
-type AnswerObject={
+export type AnswerObject={
   question:string;
   answer:string;
   correct:boolean;
@@ -17,7 +17,9 @@ const App=()=> {
   // state
   const [loading,setLoading]=useState(false);
   const [questions,setQuestions]=useState<QuestionState[]>([]);
+  // question number
   const [number,setNumber]=useState(0);
+  // user selected options
   const [userAnswers,setUserAnswers]=useState<AnswerObject[]>([]);
   const [score,setScore]=useState(0);
   const [gameOver,setGameOver]=useState(true);
@@ -36,13 +38,36 @@ const App=()=> {
     setLoading(false);
     console.log("newQuestions",newQuestions);
   }
-
+  // check answer only if not gameover
   const checkAnswer=(e:React.MouseEvent<HTMLButtonElement>)=>{
-
+    if(!gameOver){
+        //users answer - get the value from the button
+        const answer=e.currentTarget.value;
+        // check answer against correct answer from button
+        const correct=questions[number].correct_answer===answer;
+        // add score if answer is correct
+        if(correct) setScore(prev=>prev+1);
+        // save the answer in array for user answers
+        const answerObject={
+          question:questions[number].question,
+          answer:answer,
+          correct:correct,
+          correctAnswer:questions[number].correct_answer
+        }
+        //save the answerObject in UserAnswers object
+        setUserAnswers(prev=>[...prev,answerObject]);
+        console.log("userAnswers",userAnswers);
+    }
   }
-
   const nextQuestion=()=>{
-
+    // move the question
+    const nextQuestion=number+1;
+    //if question is the last question end the game
+    if(nextQuestion===TOTAL_QUESTIONS){
+      setGameOver(true);
+    }else{
+      setNumber(nextQuestion);
+    }
   }  
   return (
     <div className="App">
@@ -54,7 +79,7 @@ const App=()=> {
       </button>):null
       }
      {/* show score only if the game is not over */}     
-      {!gameOver&&<p className="score">Score</p>}
+      {!gameOver&&<p className="score">Score: {score}</p>}
       {/* show loading only when the loading flag is present */}
       {loading&&<p>Loading Questions...</p>}
       {/* show QuestionCard only if not game over amd not loading */}
@@ -62,6 +87,7 @@ const App=()=> {
         !loading&&!gameOver&&(<QuestionCard 
           questionNr={number+1} 
           totalQuestions={TOTAL_QUESTIONS}
+          //individual question and answer details are sent to the QuestionCard component when number is incremented
           question={questions[number].question}
           answers={questions[number].answers}
           userAnswer={userAnswers?userAnswers[number]:undefined}
