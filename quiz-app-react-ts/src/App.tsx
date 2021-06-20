@@ -4,7 +4,10 @@ import QuestionCard from './components/QuestionCard';
 // import ENUM Types
 import {Difficulty,QuestionState} from './API'
 // API
-import {fetchQuizQuestions} from './API'
+import {fetchQuizQuestions} from './API';
+// Styles 
+import {GlobalStyle,Wrapper} from './App.styles';
+
 const TOTAL_QUESTIONS=10;
 // type 
 export type AnswerObject={
@@ -70,7 +73,9 @@ const App=()=> {
     }
   }  
   return (
-    <div className="App">
+    <>
+    <GlobalStyle/>
+    <Wrapper>
       <h1>React Quiz</h1>
       {
         // display the button only at start || if we are in last question
@@ -99,7 +104,9 @@ const App=()=> {
         !gameOver && !loading && userAnswers.length===number+1 && number!==TOTAL_QUESTIONS-1 ?( <button className="next" onClick={nextQuestion}>Next Quesion</button>):null
       }
      
-    </div>
+    </Wrapper>
+    </>
+    
   );
 }
 export default App;
