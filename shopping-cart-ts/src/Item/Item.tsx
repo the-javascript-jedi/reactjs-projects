@@ -24,4 +24,4 @@ const Item:React.FC<Props> = ({item,handleAddToCart}) => {
         </Wrapper>
     )
 }
-export default Item
+export default Item;
