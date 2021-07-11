@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
+// router
+import { Link } from "react-router";
+// import graphql query
+import query from "../queries/fetchSongs";
+
 export class SongList extends Component {
   // helper method to render songs
   renderSongs() {
@@ -20,21 +25,18 @@ export class SongList extends Component {
     }
 
     return (
-      <ul className="collection">
-        <h1>SongList</h1>
-        {this.renderSongs()}
-      </ul>
+      <div>
+        <ul className="collection">
+          <h1>SongList</h1>
+          {this.renderSongs()}
+        </ul>
+        <Link to="/songs/new" className="btn-floating btn-large red right">
+          <i className="material-icons">add</i>
+        </Link>
+      </div>
     );
   }
 }
-// the helper from the gql library to form up the query itself.
-const query = gql`
-  {
-    songs {
-      id
-      title
-    }
-  }
-`;
+// we pass the imported fetchSongs graphql query
 // this below code will send the query to graphql and return the data as props
 export default graphql(query)(SongList);
