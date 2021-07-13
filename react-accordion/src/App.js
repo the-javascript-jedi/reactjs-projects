@@ -28,7 +28,7 @@ function App() {
             </div>
           </div>
           <div className="col-12 text-left">
-            <Accordion data={AccordionData} />
+            <Accordion data={AccordionData} multiple={false} />
           </div>
         </div>
       </div>
