@@ -45,12 +45,18 @@ module.exports = {
   // plugins section
   // CommonsChunkPlugin-if there are copies or duplicates between the bundle.js and vendor.js, pull them out and add them to the vendor entry point
   // HtmlWebpackPlugn-it will manually add in a script tag for every JavaScript file we just added and then it will take - or it will output a new HTML document into our dist directory.
+  // DefinePlugin-is used to define Windows scope variables that will be define within our bundle.js file,
+  //"process.env.NODE_ENV" -  we define the variable that we want to find.
+  //JSON.stringify(process.env.NODE_ENV) - we define the value that we want it to be assigned.
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       names: ["vendor", "manifest"],
     }),
     new HtmlWebpackPlugin({
       template: "src/index.html",
+    }),
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
     }),
   ],
 };
