@@ -14,6 +14,9 @@ export default class JokeList extends Component {
       jokes: JSON.parse(window.localStorage.getItem("jokes")) || [],
       loading: false,
     };
+    // create a set for duplicate items
+    this.seenJokes = new Set(this.state.jokes.map((j) => j.text));
+    console.log("this.seenJokes", this.seenJokes);
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
@@ -23,26 +26,38 @@ export default class JokeList extends Component {
   }
   // make request to API
   async getJokes() {
-    // Load Jokes
-    let jokes = [];
-    // we use a while loop to loop through duplicate jokes
-    // if we use for loop only the 10 data will be present
-    while (jokes.length < this.props.numJokesToGet) {
-      let res = await axios.get("https://icanhazdadjoke.com/", {
-        headers: { Accept: "application/json" },
-      });
-      jokes.push({ id: uuidv4(), text: res.data.joke, votes: 0 });
+    try {
+      // Load Jokes
+      let jokes = [];
+      // we use a while loop to loop through duplicate jokes
+      // if we use for loop only the 10 data will be present
+      while (jokes.length < this.props.numJokesToGet) {
+        let res = await axios.get("https://icanhazdadjoke.com/", {
+          headers: { Accept: "application/json" },
+        });
+        // check the response joke with existing jokes in state for duplicates
+        let newJoke = res.data.joke;
+        if (!this.seenJokes.has(newJoke)) {
+          jokes.push({ id: uuidv4(), text: res.data.joke, votes: 0 });
+        } else {
+          console.log("FOUND A DUPLICATE");
+          console.log(newJoke);
+        }
+      }
+      // add jokes to existing kokes whenever request is made to the api
+      this.setState(
+        (st) => ({
+          loading: false,
+          jokes: [...st.jokes, ...jokes],
+        }),
+        //once state is finished updating update the local storage
+        () =>
+          window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
+      );
+    } catch (err) {
+      this.setState({ loading: false });
+      alert(err);
     }
-    // add jokes to existing kokes whenever request is made to the api
-    this.setState(
-      (st) => ({
-        loading: false,
-        jokes: [...st.jokes, ...jokes],
-      }),
-      //once state is finished updating update the local storage
-      () =>
-        window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
-    );
   }
   handleVote(id, delta) {
     this.setState(
@@ -71,6 +86,8 @@ export default class JokeList extends Component {
         </div>
       );
     }
+    // sort jokes based on votes
+    let jokes = this.state.jokes.sort((a, b) => b.votes - a.votes);
     return (
       <div className="JokeList">
         <div className="JokeList-sidebar">
@@ -87,7 +104,8 @@ export default class JokeList extends Component {
         </div>
         <h1>Dad Jokes</h1>
         <div className="JokeList-jokes">
-          {this.state.jokes.map((j) => (
+          {/* use sorted jokes */}
+          {jokes.map((j) => (
             <div>
               {/* {j.joke} {j.votes} */}
               <Joke
