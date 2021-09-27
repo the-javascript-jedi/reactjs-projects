@@ -24,7 +24,11 @@ export class Palette extends Component {
         //displays the different formats for each color
         console.log("color[this.state.format]", color[this.state.format]);
         return (
-          <ColorBox background={color[this.state.format]} name={color.name} />
+          <ColorBox
+            background={color[this.state.format]}
+            name={color.name}
+            key={color.id}
+          />
         );
       }
     );
@@ -40,7 +44,11 @@ export class Palette extends Component {
           {/* bunch of color boxes */}
           {colorBoxes}
         </div>
-        {/* footer eventually */}
+        {/* Footer */}
+        <footer className="Palette-footer">
+          {this.props.palette.paletteName}
+          <span className="emoji">{this.props.palette.emoji}</span>
+        </footer>
       </div>
     );
   }
