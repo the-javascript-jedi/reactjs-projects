@@ -23,11 +23,16 @@ export class Palette extends Component {
       (color) => {
         //displays the different formats for each color
         console.log("color[this.state.format]", color[this.state.format]);
+        // color[this.state.format] #f6b906
+        console.log("color", color);
+        // {name: 'red 500', id: 'red', hex: '#eb3d30', rgb: 'rgb(235,61,48)', rgba: 'rgba(235,61,48,1.0)'}
         return (
           <ColorBox
             background={color[this.state.format]}
             name={color.name}
             key={color.id}
+            colorId={color.id}
+            paletteId={this.props.palette.id}
           />
         );
       }
