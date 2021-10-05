@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ColorBox from "../ColorBox/ColorBox";
 import "./Palette.css";
 import Navbar from "../Navbar/Navbar";
+import PaletteFooter from "../PaletteFooter/PaletteFooter";
 export class Palette extends Component {
   constructor(props) {
     super(props);
@@ -22,9 +23,9 @@ export class Palette extends Component {
     const colorBoxes = this.props.palette.colors[this.state.level].map(
       (color) => {
         //displays the different formats for each color
-        console.log("color[this.state.format]", color[this.state.format]);
+        // console.log("color[this.state.format]", color[this.state.format]);
         // color[this.state.format] #f6b906
-        console.log("color", color);
+        // console. log("color", color);
         // {name: 'red 500', id: 'red', hex: '#eb3d30', rgb: 'rgb(235,61,48)', rgba: 'rgba(235,61,48,1.0)'}
         return (
           <ColorBox
@@ -33,6 +34,7 @@ export class Palette extends Component {
             key={color.id}
             colorId={color.id}
             paletteId={this.props.palette.id}
+            showLink={true}
           />
         );
       }
@@ -44,16 +46,17 @@ export class Palette extends Component {
           level={this.state.level}
           changeLevel={this.changeLevelHandler}
           handleChangeHandler={this.changeFormat}
+          showingAllColors={true}
         />
         <div className="Palette-colors">
           {/* bunch of color boxes */}
           {colorBoxes}
         </div>
         {/* Footer */}
-        <footer className="Palette-footer">
-          {this.props.palette.paletteName}
-          <span className="emoji">{this.props.palette.emoji}</span>
-        </footer>
+        <PaletteFooter
+          paletteName={this.props.palette.paletteName}
+          emoji={this.props.palette.emoji}
+        />
       </div>
     );
   }

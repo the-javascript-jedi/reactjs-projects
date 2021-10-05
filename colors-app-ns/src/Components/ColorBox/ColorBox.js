@@ -41,12 +41,14 @@ export class ColorBox extends Component {
           </div>
           {/* links */}
           {/* /palette/:palettedId/:colorId */}
-          <Link
-            to={`palette/${this.props.paletteId}/${this.props.colorId}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <span className="see-more">More</span>
-          </Link>
+          {this.props.showLink && (
+            <Link
+              to={`/palette/${this.props.paletteId}/${this.props.colorId}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span className="see-more">More</span>
+            </Link>
+          )}
         </div>
       </CopyToClipboard>
     );
