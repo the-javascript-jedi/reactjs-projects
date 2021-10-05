@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ColorBox from "../ColorBox/ColorBox";
 import Navbar from "../Navbar/Navbar";
 import PaletteFooter from "../PaletteFooter/PaletteFooter";
+import { Link } from "react-router-dom";
 export class SingleColorPalette extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +13,7 @@ export class SingleColorPalette extends Component {
     this.state = { format: "hex" };
     //bind functions
     this.changeFormat = this.changeFormat.bind(this);
+    console.log("this.props", this.props);
   }
   // change level of slider
   changeLevelHandler(level) {
@@ -24,8 +26,8 @@ export class SingleColorPalette extends Component {
   }
   // return all the shades of a given colour
   gatherShades(palette, colorToFilterBy) {
-    console.log("palette", palette);
-    console.log("colorToFilterBy", colorToFilterBy);
+    // console.log("palette", palette);
+    // console.log("colorToFilterBy", colorToFilterBy);
     // take the palette and the color and find all the colors that matches the passed color shade inside the palette
     let shades = [];
     let allColors = palette.colors;
@@ -42,19 +44,29 @@ export class SingleColorPalette extends Component {
     //render the color boxes
     const colorBoxes = this._shades.map((color) => (
       <ColorBox
-        key={color.id}
+        key={color.name}
         name={color.name}
         background={color[this.state.format]}
         showLink={false}
       />
     ));
     return (
-      <div className="Palette">
+      <div className="SingleColorPalette Palette">
         <Navbar
           handleChangeHandler={this.changeFormat}
           showingAllColors={false}
         />
-        <div className="Palette-colors">{colorBoxes}</div>
+        <div className="Palette-colors">
+          {colorBoxes}
+          <div className="go-back ColorBox">
+            <Link
+              to={`/palette/${this.props.palette.id}`}
+              className="back-button"
+            >
+              Go Back
+            </Link>
+          </div>
+        </div>
         <PaletteFooter
           paletteName={this.props.palette.paletteName}
           emoji={this.props.palette.emoji}
