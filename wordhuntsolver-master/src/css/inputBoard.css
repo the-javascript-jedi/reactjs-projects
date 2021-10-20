@@ -1,0 +1,26 @@
+.inputBoard {
+    width: min(600px, 70vh);
+    height: min(600px, 70vh);;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputRow {
+    flex: 1;
+    display: flex;
+}
+
+.boardItem {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .inputBoard {
+        width: 95vw;
+        height: 95vw;
+        margin-top: 30px;
+    }
+}

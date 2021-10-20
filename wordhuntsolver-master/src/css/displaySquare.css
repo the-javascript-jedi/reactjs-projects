@@ -1,0 +1,16 @@
+.displaySquare {
+    width: 85%;
+    height: 85%;
+    border-radius: 10%;
+    background-color: white;
+    box-shadow: 2px 2px 5px #ccc;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.displayLetter {
+    margin: 0;
+    color: var(--text-color);
+}

@@ -1,0 +1,23 @@
+.inputSquare {
+    width: 85%;
+    height: 85%;
+    border-radius: 10%;
+    border: none;
+    caret-color: transparent;
+    background-color: white;
+    box-shadow: 2px 2px 5px #ccc;
+    text-align: center;
+    position: relative;
+    outline: none;
+    bottom: 0;
+    transition: 0.2s;
+    color: var(--text-color);
+    padding: 0;
+    -webkit-appearance: none;
+}
+
+.inputSquare:focus {
+    background-color: var(--highlight-color);
+    bottom: 3px;
+    box-shadow: 2px 5px 5px #ccc;
+}

@@ -1,0 +1,25 @@
+.displayBoard {
+    width: min(600px, 70vh);
+    height: min(600px, 70vh);
+    display: flex;
+    flex-direction: column;
+}
+
+.displayRow {
+    flex: 1;
+    display: flex;
+}
+
+.displayBoardItem {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .displayBoard {
+        width: 95vw;
+        height: 95vw;
+    }
+}

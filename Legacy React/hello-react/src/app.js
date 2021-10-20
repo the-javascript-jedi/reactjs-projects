@@ -18,7 +18,7 @@ var IndecisonApp = React.createClass({
 // Header Component
 var Header = React.createClass({
   render: function () {
-    console.log("this.props", this.props);
+    // console.log("Header -- this.props", this.props);
     return (
       <div>
         <h1>{this.props.title}</h1>
@@ -29,10 +29,14 @@ var Header = React.createClass({
 });
 //Action Component
 var Action = React.createClass({
+  handlePick: function () {
+    alert("handlePick");
+  },
   render: function () {
+    // console.log("Action--render--this", this);
     return (
       <div>
-        <button>What should i do?</button>
+        <button onClick={this.handlePick}>What should i do?</button>
       </div>
     );
   },
@@ -45,10 +49,15 @@ var Option = React.createClass({
 });
 // Options Component
 var Options = React.createClass({
+  removeAllHandler: function () {
+    console.log("Options--this.props--removeAllHandler", this.props.options);
+    alert("removeAllHandler clciked");
+  },
   render: function () {
-    console.log("Options--this.props", this.props.options.length);
+    console.log("Options--this.props--render", this.props.options);
     return (
       <div>
+        <button onClick={this.removeAllHandler}>Remove All</button>
         {/* Options component here */}
         {this.props.options.map(function (option, index) {
           return <Option option={option} key={index} />;
@@ -60,8 +69,23 @@ var Options = React.createClass({
 
 // Add Option Component
 var AddOption = React.createClass({
+  handleSubmit: function (e) {
+    e.preventDefault();
+    // grab the form option name
+    const option = e.target.elements.option.value.trim();
+    if (option) {
+      alert(option);
+    }
+  },
   render: function () {
-    return <div>AddOption Component Here</div>;
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" name="option" />
+          <button>Add Option</button>
+        </form>
+      </div>
+    );
   },
 });
 

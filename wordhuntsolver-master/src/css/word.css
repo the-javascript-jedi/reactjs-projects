@@ -1,0 +1,21 @@
+.word {
+    width: fit-content;
+    padding: 12px 23px;
+    border-radius: 100px;
+    cursor: pointer;
+    outline: none;
+}
+
+.word:hover {
+    background-color: #eee;
+}
+
+.word:focus {
+    background-color: var(--highlight-color);
+}
+
+.wordText {
+    margin: 0;
+    font-size: 26px;
+    color: var(--text-color);
+}
