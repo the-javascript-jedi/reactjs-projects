@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Todo from "./Todo";
 import NewTodoForm from "./NewTodoForm";
+
 export class TodoList extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +18,7 @@ export class TodoList extends Component {
     this.setState({ todos: [...this.state.todos, newTodo] });
   }
   remove(id) {
-    console.log("remove-id--TodoHandler", id);
+    // console.log("remove-id--TodoHandler", id);
     this.setState({
       todos: this.state.todos.filter((t) => t.id !== id),
     });
@@ -33,6 +34,12 @@ export class TodoList extends Component {
     });
     // set the state with updated tasks
     this.setState({ todos: updatedTodos });
+  }
+  // componentDidUpdate
+  componentDidUpdate(prevProps, prevState) {
+    console.log("IN COMPONENT DID UPDATE--TodoList");
+    console.log("prevState.todos", prevState.todos);
+    console.log("this.state.todos", this.state.todos);
   }
   // toggleCompletion
   toggleCompletion(id) {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as uuid from "uuid";
+// import "./NewTodoForm.css";
 
 export class NewTodoForm extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export class NewTodoForm extends Component {
       completed: false,
     });
     this.setState({ task: "" });
-    console.log("state", this.state);
+    // console.log("state", this.state);
   }
   render() {
     return (

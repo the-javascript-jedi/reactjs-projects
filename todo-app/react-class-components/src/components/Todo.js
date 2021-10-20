@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./Todo.css";
 export class Todo extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +16,7 @@ export class Todo extends Component {
   }
   // access the removeTodo callback
   handleRemove() {
-    console.log("handleRemove called--Todo");
+    // console.log("handleRemove called--Todo");
     this.props.removeTodo(this.props.id);
   }
   // change the state of the toggle button
@@ -39,6 +38,13 @@ export class Todo extends Component {
       [evt.target.name]: evt.target.value,
     });
   }
+  // componentDidUpdate
+  componentDidUpdate(prevProps, prevState) {
+    console.log("TODO COMPONENT DID UPDATE");
+    console.log("prevProps.task", prevProps.task);
+    console.log("this.props.task", this.props.task);
+  }
+
   // handleToggle- toggle the task to completed
   handleToggle() {
     // pass the id of todo to be completed
