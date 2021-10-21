@@ -1,7 +1,8 @@
 import Header from "./components/Header";
 import Customize from "./components/Customize";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useState } from "react";
+import Checkout from "./components/Checkout";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 function App() {
   // state
   const [ingredients, setIngredients] = useState({
@@ -12,6 +13,15 @@ function App() {
     pineapple: false,
     tomato: false,
   });
+  // check if data is present in local storage
+  useEffect(() => {
+    const data = localStorage.getItem("ingredients");
+    // set the state if data is present in local storage
+    if (data) {
+      setIngredients(JSON.parse(data));
+    }
+  }, []);
+
   return (
     <div className="App">
       <Header />
@@ -24,7 +34,7 @@ function App() {
             />
           </Route>
           <Route path="/checkout">
-            <h1>Checkout</h1>
+            <Checkout ingredients={ingredients} />
           </Route>
         </Switch>
       </Router>

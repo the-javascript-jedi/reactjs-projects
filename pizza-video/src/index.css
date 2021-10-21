@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap");
 body {
   margin: 0;
 }
@@ -5,6 +8,23 @@ body {
 .ingredients {
   position: absolute;
   margin-top: -100px;
+}
+.cheese {
+  width: 100%;
+  position: absolute;
+}
+/* z-indexes */
+.z1 {
+  z-index: 1;
+}
+.z2 {
+  z-index: 2;
+}
+.z3 {
+  z-index: 3;
+}
+.z4 {
+  z-index: 4;
 }
 
 /* checkbox */
@@ -143,4 +163,34 @@ body {
   right: 0;
   top: 0;
   color: white;
+}
+
+.proceedToCheckout {
+  margin-top: 30px;
+  padding: 10px 20px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  background: orange;
+  border: 0px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.pizzaHolder {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding: 0 2rem;
+  width: 25%;
+}
+.pizzaOptions {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.displayPizzaContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
 }
