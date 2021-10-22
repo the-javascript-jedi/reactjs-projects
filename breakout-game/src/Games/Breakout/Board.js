@@ -3,8 +3,11 @@ import { BallMovement } from "./BallMovement";
 import WallCollision from "./WallCollision";
 import data from "../../data";
 import Paddle from "./Paddle";
+import Brick from "./Brick";
 //access data props
-let { ballObj, paddleProps } = data;
+let { ballObj, paddleProps, brickObj } = data;
+//
+let bricks = [];
 function Board() {
   const canvasRef = useRef(null);
   //   useEffect
@@ -12,8 +15,19 @@ function Board() {
     const render = () => {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
-
+      //Assign Bricks
+      let newBrickSet = Brick(2, bricks, canvas, brickObj);
+      //if bricks are returned from the Brick function
+      if (newBrickSet && newBrickSet.length > 0) {
+        bricks = newBrickSet;
+      }
+      //clear the canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      //display the bricks in canvas
+      bricks.map((brick) => {
+        return brick.draw(ctx);
+      });
+
       //pass the canvas context and ballObj data
       BallMovement(ctx, ballObj);
       //Wall Collision
