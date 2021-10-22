@@ -12,5 +12,4 @@ function WallCollision(ballObj, canvas) {
     ballObj.dx *= -1;
   }
 }
-
 export default WallCollision;
