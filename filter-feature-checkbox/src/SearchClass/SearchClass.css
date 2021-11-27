@@ -1,0 +1,17 @@
+.SearchClassContainer {
+  background-color: lightblue;
+
+  margin-top: 49px;
+  /* display: flex; */
+
+  align-items: center;
+}
+
+input[type="text"] {
+  height: 30px;
+  margin-left: 100px;
+}
+
+label {
+  padding-left: 130px;
+}
