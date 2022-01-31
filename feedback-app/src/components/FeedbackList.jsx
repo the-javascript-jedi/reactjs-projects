@@ -4,7 +4,7 @@ import { useContext } from 'react';
 
 import FeedbackContext from '../context/FeedbackContext';
 
-function FeedbackList({deleteFeedback}) {
+function FeedbackList() {
   //useContext and access the state
   const {feedback}=useContext(FeedbackContext);
 
@@ -18,7 +18,7 @@ function FeedbackList({deleteFeedback}) {
       {
           feedback.map((item)=>{
               return   (
-                  <FeedbackItem key={item.id} item={item} handleDelete={deleteFeedback}/>
+                  <FeedbackItem key={item.id} item={item} />
               )              
           })
       }
