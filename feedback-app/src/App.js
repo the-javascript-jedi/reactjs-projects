@@ -11,7 +11,7 @@ import AboutPage from "./pages/AboutPage";
 import AboutIconLink from "./components/AboutIconLink";
 
 import { useState } from "react";
-
+import { FeedbackProvider } from "./context/FeedbackContext";
 const App = () => {
   const [feedback, setFeedback] = useState(FeedbackData);
   const addFeedback = (newFeedback) => {
@@ -26,30 +26,32 @@ const App = () => {
     }
   };
   return (
-    <BrowserRouter>
-      <Header text="feedback ui"></Header>
-      <div className="container">
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <>
-                <FeedbackForm handleAdd={addFeedback} />
-                <FeedbackStats feedback={feedback} />
-                <FeedbackList
-                  feedback={feedback}
-                  deleteFeedback={deleteFeedback}
-                />
-              </>
-            }
-          ></Route>
-          {/* In react router 6 we need to pass jsx */}
-          <Route path="/about" element={<AboutPage />}></Route>
-        </Routes>
-      </div>
-      <AboutIconLink />
-    </BrowserRouter>
+    <FeedbackProvider>
+      <BrowserRouter>
+        <Header text="feedback ui"></Header>
+        <div className="container">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <>
+                  <FeedbackForm handleAdd={addFeedback} />
+                  <FeedbackStats feedback={feedback} />
+                  <FeedbackList
+                    feedback={feedback}
+                    deleteFeedback={deleteFeedback}
+                  />
+                </>
+              }
+            ></Route>
+            {/* In react router 6 we need to pass jsx */}
+            <Route path="/about" element={<AboutPage />}></Route>
+          </Routes>
+        </div>
+        <AboutIconLink />
+      </BrowserRouter>
+    </FeedbackProvider>
   );
 };
 
