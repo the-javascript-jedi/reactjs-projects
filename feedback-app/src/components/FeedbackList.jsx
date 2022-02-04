@@ -7,8 +7,6 @@ import FeedbackContext from '../context/FeedbackContext';
 function FeedbackList() {
   //useContext and access the state
   const {feedback}=useContext(FeedbackContext);
-
-  console.log("feedback",feedback);
   if(!feedback||feedback.length===0){
       return <p>No Feedback Yet</p>
   }

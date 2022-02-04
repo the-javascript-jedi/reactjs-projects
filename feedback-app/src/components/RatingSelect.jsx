@@ -1,11 +1,20 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState ,useContext,useEffect} from 'react';
+import FeedbackContext from '../context/FeedbackContext';
 
 function RatingSelect({select}) {
+ //useContext and access the state
+ const {feedbackEditState}=useContext(FeedbackContext);
+ //useEffect and set the state from context for update
+ useEffect(()=>{
+  if(feedbackEditState.edit===true){
+    setSelected(feedbackEditState.item.rating)
+  }
+ },[feedbackEditState])
  const [selected, setSelected] = useState(10);
  const ratingsArray=[1,2,3,4,5,6,7,8,9,10]
  const handleChange = (e) => {
-     console.log(e.target);
+    //  console.log(e.target);
      //+ is used to convert to number
     setSelected(+e.currentTarget.value)
     select(+e.currentTarget.value)
