@@ -3,8 +3,8 @@ import React from 'react'
 const Slide = ({title,text}) => {
   return (
     <div>Slide<br/>
-    <h3>{title}</h3>
-    <p>{text}</p>
+    <h3>Slide Title: {title}</h3>
+    <p>Slide Text: {text}</p>
     </div>
   )
 }
