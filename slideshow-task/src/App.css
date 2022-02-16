@@ -1,7 +1,49 @@
 .App {
   text-align: center;
+  padding: 50px;
 }
-
+.slides-container {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.buttons-container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+}
+.slides {
+  display: flex;
+  border: 1px solid black;
+  width: 95%;
+  justify-content: center;
+  margin: 1rem 1rem;
+}
+.btn {
+  padding: 10px;
+  border: none;
+}
+button:disabled {
+  color: black;
+  background: darkgrey;
+}
+.btn-primary {
+  background: #3fa13f;
+  color: #fff;
+}
+.btn-secoondary {
+  background: #5c5ceb;
+  color: #fff;
+}
+.btn-restart {
+  background: #e36738;
+  color: #fff;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
