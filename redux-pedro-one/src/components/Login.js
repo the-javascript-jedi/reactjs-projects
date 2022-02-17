@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { loginAction, logOutAction } from "../features/userReducer";
 const Login = () => {
+  //Step 5 dispatch action
   const dispatch = useDispatch();
   return (
     <div>
