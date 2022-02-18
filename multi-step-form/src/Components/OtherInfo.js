@@ -1,13 +1,26 @@
 import React from "react";
 
-const OtherInfo = () => {
+function OtherInfo({ formData, setFormData }) {
   return (
     <div className="other-info-container">
-      <h1>OtherInfo</h1>
-      <input type="text" placeholder="Last Name..." />
-      <input type="text" placeholder="UserName..." />
+      <input
+        type="text"
+        placeholder="Nationality..."
+        value={formData.nationality}
+        onChange={(e) => {
+          setFormData({ ...formData, nationality: e.target.value });
+        }}
+      />
+      <input
+        type="text"
+        placeholder="Other..."
+        value={formData.other}
+        onChange={(e) => {
+          setFormData({ ...formData, other: e.target.value });
+        }}
+      />
     </div>
   );
-};
+}
 
 export default OtherInfo;
