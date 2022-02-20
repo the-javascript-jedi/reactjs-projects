@@ -1,30 +1,37 @@
 import React from "react";
-
-function PersonalInfo({ formData, setFormData }) {
+import { formAction } from "../features/formReducer";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+function PersonalInfo() {
+  //step 5 - declare useDispatch hook to dispatch an action
+  const dispatch = useDispatch();
+  // Step 6 - useSelector to display state data
+  //get the existing state from the useSelector
+  const formRedux = useSelector((state) => state.form.value);
   return (
     <div className="personal-info-container">
       <input
         type="text"
         placeholder="First Name..."
-        value={formData.firstName}
+        value={formRedux.firstName}
         onChange={(e) => {
-          setFormData({ ...formData, firstName: e.target.value });
+          dispatch(formAction({ ...formRedux, firstName: e.target.value }));
         }}
       />
       <input
         type="text"
         placeholder="Last Name..."
-        value={formData.lastName}
+        value={formRedux.lastName}
         onChange={(e) => {
-          setFormData({ ...formData, lastName: e.target.value });
+          dispatch(formAction({ ...formRedux, lastName: e.target.value }));
         }}
       />
       <input
         type="text"
         placeholder="Username..."
-        value={formData.username}
+        value={formRedux.username}
         onChange={(e) => {
-          setFormData({ ...formData, username: e.target.value });
+          dispatch(formAction({ ...formRedux, username: e.target.value }));
         }}
       />
     </div>

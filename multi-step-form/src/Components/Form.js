@@ -2,29 +2,22 @@ import React, { useState } from "react";
 import SignUpInfo from "./SignUpInfo";
 import PersonalInfo from "./PersonalInfo";
 import OtherInfo from "./OtherInfo";
+import { useSelector } from "react-redux";
 
 function Form() {
   const [page, setPage] = useState(0);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    firstName: "",
-    lastName: "",
-    username: "",
-    nationality: "",
-    other: "",
-  });
+  //get the existing state from the useSelector
+  const formRedux = useSelector((state) => state.form.value);
 
   const FormTitles = ["Sign Up", "Personal Info", "Other"];
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <SignUpInfo formData={formData} setFormData={setFormData} />;
+      return <SignUpInfo />;
     } else if (page === 1) {
-      return <PersonalInfo formData={formData} setFormData={setFormData} />;
+      return <PersonalInfo />;
     } else {
-      return <OtherInfo formData={formData} setFormData={setFormData} />;
+      return <OtherInfo />;
     }
   };
 
@@ -33,7 +26,9 @@ function Form() {
       <div className="progressbar">
         {/* progress bar calculation */}
         <div
-          style={{ width: page === 0 ? "33.3%" : page == 1 ? "66.6%" : "100%" }}
+          style={{
+            width: page === 0 ? "33.3%" : page === 1 ? "66.6%" : "100%",
+          }}
         ></div>
       </div>
       <div className="form-container">
@@ -54,7 +49,8 @@ function Form() {
             onClick={() => {
               if (page === FormTitles.length - 1) {
                 alert("FORM SUBMITTED");
-                console.log(formData);
+                // console.log(formData);
+                console.log("formRedux", formRedux);
               } else {
                 setPage((currPage) => currPage + 1);
               }
