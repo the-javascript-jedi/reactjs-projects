@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { PokemonListReducer } from "./PokemonListReducer";
 const RootReducer = combineReducers({
-  reducers: {},
+  PokemonList: PokemonListReducer,
 });
 export default RootReducer;
