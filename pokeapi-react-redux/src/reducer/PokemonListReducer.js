@@ -14,6 +14,7 @@ const PokemonListReducer = (state = DefaultState, action) => {
         errorMsg: "",
       };
     case "POKEMON_LIST_SUCCESS":
+      console.log("action-PokemonListReducer", action);
       return {
         ...state,
         loading: false,
