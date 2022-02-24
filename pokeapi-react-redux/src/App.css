@@ -35,3 +35,19 @@ nav a {
   color: black;
   text-decoration: none;
 }
+.poke {
+  margin: auto;
+  width: 90%;
+}
+.pokemon-data {
+  display: flex;
+  justify-content: space-between;
+}
+.poke-images {
+  display: flex;
+  width: 200px;
+  flex-flow: row wrap;
+  flex-direction: row;
+  border: 1px solid red;
+  margin-right: 0;
+}

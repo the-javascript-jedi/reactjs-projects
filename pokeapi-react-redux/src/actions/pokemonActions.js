@@ -14,10 +14,13 @@ export const GetPokemonList = (page) => async (dispatch) => {
     */
     const res = await axios.get(
       //   "https://pokeapi.co/api/v2/pokemon?limit=100&offset=200"
-      `ahttps://pokeapi.co/api/v2/pokemon?limit=${perPage}&offset=${offset}`
+      `https://pokeapi.co/api/v2/pokemon?limit=${perPage}&offset=${offset}`
     );
-    console.log("res", res);
-    console.log("res.data.results", res.data.results);
+    // console.log("res", res);
+    // console.log(
+    //   "res.data.results-GetPokemonList-pokemonActions",
+    //   res.data.results
+    // );
     dispatch({
       type: "POKEMON_LIST_SUCCESS",
       payload: res.data,
@@ -30,17 +33,19 @@ export const GetPokemonList = (page) => async (dispatch) => {
   }
 };
 // Get Individual Pokemon
-export const GetPokemon = (pokemon) => async (dispatch) => {
+export const GetPokemon = (pokemonName) => async (dispatch) => {
   try {
     dispatch({
       type: "POKEMON_MULTIPLE_LOADING",
     });
-    const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-    console.log("res", res);
+    const res = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+    );
+    console.log("res--GetPokemon-action", res);
     dispatch({
       type: "POKEMON_MULTIPLE_SUCCESS",
       payload: res.data,
-      pokemon: pokemon,
+      pokemonName: pokemonName,
     });
   } catch (e) {
     console.error(e);

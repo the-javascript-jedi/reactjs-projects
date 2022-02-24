@@ -12,7 +12,7 @@ const PokemonList = (props) => {
     FetchData(1);
   }, []);
   const pokemonList = useSelector((state) => state.PokemonList);
-  console.log("pokemonList", pokemonList);
+  console.log("pokemonList--PokemonList.js", pokemonList);
   const ShowData = () => {
     if (!_.isEmpty(pokemonList.data)) {
       return pokemonList.data.map((pokemon) => {
