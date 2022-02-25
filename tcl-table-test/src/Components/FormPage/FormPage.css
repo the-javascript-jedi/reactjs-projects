@@ -1,0 +1,43 @@
+.form-container,
+.table-container {
+  border: 1px solid;
+  padding: 1rem;
+}
+.table-container {
+  flex: 3;
+}
+label {
+  display: block;
+  margin-top: 1rem;
+  font-style: italic;
+  font-weight: 700;
+}
+input,
+select {
+  width: 100%;
+}
+.multipleTextBox {
+  display: flex;
+  margin-bottom: 1rem;
+}
+.gender-container label,
+.gender-container input {
+  width: 15%;
+  display: inline-block;
+}
+.checkboxHolder label,
+.checkboxHolder input {
+  display: inline-block;
+}
+.checkboxHolder input {
+  width: 10%;
+}
+.hobbies.custom {
+  margin-top: 1rem;
+}
+.checkboxHolder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

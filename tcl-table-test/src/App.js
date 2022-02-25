@@ -5,8 +5,14 @@ import FormPage from "./Components/FormPage/FormPage";
 function App() {
   return (
     <div className="App">
-      <FormPage />
-      <TablePage />
+      <div className="app-container">
+        <div className="form-container">
+          <FormPage />
+        </div>
+        <div className="table-container">
+          <TablePage />
+        </div>
+      </div>
     </div>
   );
 }

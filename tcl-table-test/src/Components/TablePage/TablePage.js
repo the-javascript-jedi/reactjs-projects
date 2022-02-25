@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listUsers, deleteUsers } from "../../redux/actions/userActions";
-
+import "./TablePage.css";
 const TablePage = () => {
   const [userData, setUserData] = useState([]);
   const [searchUsers, setSearchUsers] = useState("");
@@ -25,13 +25,17 @@ const TablePage = () => {
   });
   return (
     <div>
-      <h1>TablePage</h1>
+      <h3>User List</h3>
+      <hr />
+      {/* search */}
       <input
         type="text"
         value={searchUsers}
         onChange={(e) => {
           setSearchUsers(e.target.value);
         }}
+        className="searchUser"
+        placeholder={"search by name"}
       />
       <table>
         <thead>
@@ -48,11 +52,16 @@ const TablePage = () => {
             filterUsersByName.map((user, index) => {
               return (
                 <tr key={user.id}>
-                  <td>{user.id}</td>
+                  {/* <td>{user.id}</td> */}
                   <td>{user.nameOfUser}</td>
                   <td>{user.age}</td>
                   <td>{user.gender}</td>
-                  <td>hobbies</td>
+                  <td>
+                    {/* {JSON.stringify(user)} */}
+                    {user.hobbies.map((hobby, index) => {
+                      return <p key={index}>{hobby}</p>;
+                    })}
+                  </td>
                   <td>
                     <button
                       onClick={() => {

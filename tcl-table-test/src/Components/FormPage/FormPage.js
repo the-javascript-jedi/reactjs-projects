@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import "./FormPage.css";
 // actions
 import { addUser } from "../../redux/actions/userActions";
 const FormPage = () => {
@@ -14,6 +15,26 @@ const FormPage = () => {
   const [age, setAge] = useState(18);
   const [gender, setGender] = useState("");
   const [infoVerified, setInfoVerified] = useState(true);
+  const [multipleTextBox, setMultipleTextBox] = useState({ hobbies: [""] });
+
+  const addTextBox = (event) => {
+    setMultipleTextBox({ hobbies: [...multipleTextBox.hobbies, " "] });
+  };
+  // Handle Textbox change event
+  const handleDynamicChange = (e, index) => {
+    multipleTextBox.hobbies[index] = e.target.value;
+    // set the changed state
+    setMultipleTextBox({ hobbies: multipleTextBox.hobbies });
+  };
+  // Delete textBox Field
+  const handleRemoveTextbox = (index) => {
+    // remove the item from index
+    multipleTextBox.hobbies.splice(index, 1);
+    console.log("handle remove", multipleTextBox.hobbies);
+    // update the state
+    setMultipleTextBox({ hobbies: multipleTextBox.hobbies });
+  };
+
   // useEffect
   useEffect(() => {
     console.log("users", users);
@@ -26,6 +47,7 @@ const FormPage = () => {
       nameOfUser: nameOfUser,
       age: age,
       gender: gender,
+      hobbies: multipleTextBox.hobbies,
       infoVerified: infoVerified,
     };
     // console.log("valuesToSubmit", valuesToSubmit);
@@ -33,9 +55,12 @@ const FormPage = () => {
   };
   return (
     <div>
-      <h1>FormPage</h1>
-      <div className="form-container">
+      <h3>Add User Information</h3>
+      <hr />
+
+      <div className="form-page">
         <form onSubmit={formSubmit}>
+          {/* Name */}
           <div className="form-input-group">
             <label htmlFor="name">Name</label>
             <input
@@ -47,6 +72,7 @@ const FormPage = () => {
               }}
             />
           </div>
+          {/* Age */}
           <div className="form-input-group">
             <label htmlFor="age">Age</label>
             <select
@@ -61,21 +87,20 @@ const FormPage = () => {
               <option value={20}>20</option>
             </select>
           </div>
+          {/* Gender */}
           <div
-            className="form-input-group"
+            className="form-input-group gender-container"
             onChange={(e) => {
               setGender(e.target.value);
             }}
           >
-            <label htmlFor="genderMale">Male</label>
             <input type="radio" name="gender" value="male" />
-            <label htmlFor="genderFemale">Female</label>
+            <label htmlFor="genderMale">Male</label>
             <input type="radio" name="gender" value="female" />
+            <label htmlFor="genderFemale">Female</label>
           </div>
-          <div className="form-input-group">
-            <label htmlFor="infoVerified">
-              All the information is verified
-            </label>
+          {/* Checkbox */}
+          <div className="form-input-group checkboxHolder">
             <input
               type="checkbox"
               name="infoVerified"
@@ -83,11 +108,55 @@ const FormPage = () => {
               // defaultChecked={infoVerified}
               onChange={() => setInfoVerified(!infoVerified)}
             />
+            <label htmlFor="infoVerified">
+              All the information is verified
+            </label>
           </div>
-          {/* Todo */}
-          <div className="form-input-group">
-            <label htmlFor="infoVerified">Hobbies</label>
+          {/* Hobbies - Dynamic Text Boxes */}
+          <div>
+            <div className="form-input-group">
+              <label htmlFor="infoVerified">Hobbies</label>
+            </div>
+            <div className="hobbies custom">
+              {multipleTextBox.hobbies.map((dateText, index) => {
+                return (
+                  <div className={"multipleTextBox"} key={index}>
+                    {/* Input Box */}
+                    <input
+                      value={dateText}
+                      onChange={(e) => {
+                        handleDynamicChange(e, index);
+                      }}
+                    />
+                    {/* Remove TextBox */}
+                    {multipleTextBox.hobbies.length && (
+                      <button
+                        onClick={(e) => {
+                          handleRemoveTextbox(index);
+                        }}
+                        disabled={multipleTextBox.hobbies.length === 1}
+                      >
+                        Remove
+                      </button>
+                    )}
+                    {/* <p>{JSON.stringify(multipleTextBox.hobbies.length === 1)}</p> */}
+                  </div>
+                );
+              })}
+            </div>
+            {/* Add TextBox */}
+            <button
+              type="button"
+              onClick={(e) => {
+                addTextBox(e);
+              }}
+              disabled={multipleTextBox.hobbies.length === 5}
+            >
+              Add Fields
+            </button>
           </div>
+          <p>{JSON.stringify(multipleTextBox)}</p>
+
           <div className="buttons-placeholder">
             <button type="submit">Add</button>
             <button type="button">Reset</button>

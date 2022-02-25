@@ -1,0 +1,11 @@
+table {
+  width: 100%;
+}
+thead th {
+  text-align: left;
+}
+.searchUser {
+  width: 25%;
+  display: flex;
+  margin-left: auto;
+}

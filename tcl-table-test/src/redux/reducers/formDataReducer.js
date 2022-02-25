@@ -2,10 +2,11 @@ const initialState = {
   users: [
     {
       id: 1,
-      nameOfUser: "nameOfUser",
-      age: "age",
-      gender: "gender",
+      nameOfUser: "Nithin",
+      age: "31",
+      gender: "Male",
       infoVerified: "infoVerified",
+      hobbies: ["computers", "cars", "cinemas"],
     },
   ],
 };
