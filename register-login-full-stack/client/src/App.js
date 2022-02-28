@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from "axios";
 function App() {
   const [usernameReg, setUserNameReg] = useState("");
@@ -8,6 +8,9 @@ function App() {
   const [loginPassword, setLoginPassword] = useState("");
 
   const [loginStatus, setLoginStatus] = useState("");
+  // withCredentials indicates whether or not cross-site Access-Control requests should be made
+  // XMLHttpRequest from a different domain cannot set cookie values for their own domain unless withCredentials is set to true before making the request.
+  Axios.defaults.withCredentials = true;
   // Register
   const register = () => {
     Axios.post("http://localhost:5000/register", {
@@ -39,6 +42,16 @@ function App() {
         console.error("error", error);
       });
   };
+
+  // check if user is logged in
+  useEffect(() => {
+    Axios.get("http://localhost:5000/checkUserLoggedIn").then((response) => {
+      console.log("response-/checkUserLoggedIn", response);
+      if (response.data.loggedIn === true) {
+        setLoginStatus(response.data.user[0].username);
+      }
+    });
+  }, []);
   return (
     <div className="App">
       <div className="App">
@@ -80,7 +93,7 @@ function App() {
             }}
           />
           {/* Login */}
-          <button onClick={login}>Login</button>
+          <button onClick={() => login()}>Login</button>
           <hr />
           <p>{loginStatus}</p>
         </div>

@@ -1,6 +1,12 @@
 const express = require("express");
 const app = express();
+// parse all req.body
 const bodyParser = require("body-parser");
+// parse all cookies
+const cookieParser = require("cookie-parser");
+// creates and maintains session
+const session = require("express-session");
+
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -8,9 +14,32 @@ const saltRounds = 10;
 //due to security issue using mysql2
 const mysql = require("mysql2");
 // middleware
-app.use(cors());
+// make changes when we work with session
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
+// using middleware
+app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    // name of cookie
+    key: "userId",
+    // secret name
+    secret: "subscribe",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60 * 60 * 24,
+    },
+  })
+);
 
 const db = mysql.createPool({
   host: "localhost",
@@ -18,7 +47,14 @@ const db = mysql.createPool({
   password: "mysqlroot",
   database: "cruddatabase",
 });
-
+// Check if user is logged in
+app.get("/checkUserLoggedIn", (req, res) => {
+  if (req.session.user) {
+    res.send({ loggedIn: true, user: req.session.user });
+  } else {
+    res.send({ loggedIn: false });
+  }
+});
 // Register a user
 app.post("/register", (req, res) => {
   const userName = req.body.username;
@@ -58,6 +94,10 @@ app.post("/login", (req, res) => {
         result[0].password,
         (error, passwordResponse) => {
           if (passwordResponse) {
+            //   create a session with the data we get from db
+            req.session.user = result;
+            console.log("req.session.user", req.session.user);
+            // send to frontend
             res.send(result);
           } else {
             res.send({ message: "Wrong username/password combination" });
