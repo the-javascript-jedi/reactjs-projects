@@ -55,6 +55,15 @@ app.get("/checkUserLoggedIn", (req, res) => {
     res.send({ loggedIn: false });
   }
 });
+app.get("/logout", (req, res) => {
+  console.log("req.cookies", req.cookies);
+  console.log("req.cookies[userId]", req.cookies["userId"]);
+  res.cookie("userId", "none", {
+    expires: new Date(Date.now() + 1 * 1000),
+    httpOnly: true,
+  });
+  res.send({ success: true, message: "User logged out successfully" });
+});
 // Register a user
 app.post("/register", (req, res) => {
   const userName = req.body.username;
