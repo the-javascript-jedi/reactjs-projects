@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 // creates and maintains session
 const session = require("express-session");
+// JWT
+const jwt = require("jsonwebtoken");
 
 const cors = require("cors");
 const bcrypt = require("bcrypt");
@@ -47,14 +49,46 @@ const db = mysql.createPool({
   password: "mysqlroot",
   database: "cruddatabase",
 });
-// Check if user is logged in
-app.get("/checkUserLoggedIn", (req, res) => {
-  if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
+// Verify if the user is authorized and sends a JWT token in client side api request
+const verifyJWT = (req, res, next) => {
+  // get jwt token from headers
+  const token = req.headers["x-access-token"];
+  console.log("token", token);
+  if (!token) {
+    res.send("NO JWT TOKEN, Please login using credentials");
   } else {
-    res.send({ loggedIn: false });
+    // use the same secret key used to create the token
+    jwt.verify(token, "jwtSecret", (err, decodedToken) => {
+      console.log("decodedToken", decodedToken);
+      if (err) {
+        console.log("err", err);
+        res.json({ auth: false, message: "You Did not authenticate" });
+      } else {
+        req.userId = decodedToken.id;
+        next();
+      }
+    });
+  }
+};
+// Check if user is Authenticated (ie:he sends a json token to make a request)
+app.get("/isUserAuth", verifyJWT, (req, res) => {
+  res.json({
+    auth: true,
+    message: "You are Authenticated to make the request",
+  });
+});
+
+// Check if user is logged in
+// Pass the JWT token in headers in client side
+// pass the middleware before request
+app.get("/checkUserLoggedIn", verifyJWT, (req, res) => {
+  if (req.session.user) {
+    res.send({ auth: true, user: req.session.user });
+  } else {
+    res.send({ auth: false });
   }
 });
+// Logout the User
 app.get("/logout", (req, res) => {
   console.log("req.cookies", req.cookies);
   console.log("req.cookies[userId]", req.cookies["userId"]);
@@ -103,19 +137,29 @@ app.post("/login", (req, res) => {
         result[0].password,
         (error, passwordResponse) => {
           if (passwordResponse) {
+            // get the id from the response of mysql db for making jsonweb token
+            const id = result[0].id;
+            // NOTE:jwtSecret must be in .env file
+            const token = jwt.sign({ id }, "jwtSecret", {
+              expiresIn: 300,
+            });
             //   create a session with the data we get from db
             req.session.user = result;
             console.log("req.session.user", req.session.user);
             // send to frontend
-            res.send(result);
+            // send the response with jsonwebtoken
+            res.json({ auth: true, token: token, result: result });
           } else {
-            res.send({ message: "Wrong username/password combination" });
+            res.json({
+              auth: false,
+              message: "Wrong username/password combination",
+            });
           }
         }
       );
     } else {
       //username is not present in db
-      res.send({ message: "User does not exist" });
+      res.json({ auth: false, message: "No user exists" });
     }
   });
 });
