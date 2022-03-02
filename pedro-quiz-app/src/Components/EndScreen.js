@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { QuizContext } from "../Helpers/Contexts";
 import { Questions } from "../Helpers/QuestionBank";
-
 const EndScreen = () => {
   // useContext to get the state values
   const { score, setScore, setGameState } = useContext(QuizContext);
@@ -20,5 +19,4 @@ const EndScreen = () => {
     </div>
   );
 };
-
 export default EndScreen;

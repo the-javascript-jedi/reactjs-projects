@@ -16,5 +16,4 @@ const MainMenu = () => {
     </div>
   );
 };
-
 export default MainMenu;
