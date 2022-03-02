@@ -42,7 +42,12 @@ function App() {
         console.error("error", error);
       });
   };
-
+  // Delete user
+  const logOut = () => {
+    Axios.get("http://localhost:5000/logOut").then((response) => {
+      console.log("response-logOut", response);
+    });
+  };
   // check if user is logged in
   useEffect(() => {
     Axios.get("http://localhost:5000/checkUserLoggedIn").then((response) => {
@@ -96,6 +101,7 @@ function App() {
           <button onClick={() => login()}>Login</button>
           <hr />
           <p>{loginStatus}</p>
+          <button onClick={() => logOut()}>Logout</button>
         </div>
       </div>
     </div>
