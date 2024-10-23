@@ -1,17 +1,12 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import Header from "./Header";
-import Footer from "./Footer";
-import Food from "./Food";
-
+import Student from "./Student";
 const App = () => {
   return (
     <>
-      <Header />
-      <Food />
-      <Footer />
+      <Student name="Spongebob" age={30} isStudent={true} />
+      <Student name="Patrick" age={35} isStudent={false} />
+      <Student />
     </>
   );
 };
-
 export default App;
