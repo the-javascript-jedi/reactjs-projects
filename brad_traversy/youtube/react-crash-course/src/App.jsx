@@ -6,29 +6,9 @@ const App = () => {
   const loggedIn=true;
 
   return (
-    <div className='text-5xl'>
-      <p style={{color:'red',fontSize:'24px'}}>
-        Hello
-      </p>
-      {/* for loop */}
-      <ul>
-        {
-          names.map((name,index)=>(
-            <li key={index}>
-              {name}
-            </li>
-          ))
-        }
-      </ul>
-      {/* && check */}
-      {
-        loggedIn&&<h1>Hello Member</h1>
-      }
-      {/* ternary operator check */}
-      {
-        loggedIn?<h1>Hello ternary</h1>:""
-      }
-    </div>
+   <>
+    <Navbar/>
+   </>
   )
 }
 
