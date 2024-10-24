@@ -1,9 +1,9 @@
 import React from "react";
-import List from "./List";
+import Button from "./Button";
 const App = () => {
   return (
     <>
-      <List />
+      <Button />
     </>
   );
 };
