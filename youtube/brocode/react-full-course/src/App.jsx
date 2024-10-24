@@ -1,9 +1,9 @@
 import React from "react";
-import UserGreeting from "./UserGreeting.jsx";
+import List from "./List";
 const App = () => {
   return (
     <>
-      <UserGreeting username={"test-username"} isLoggedIn={true} />
+      <List />
     </>
   );
 };
