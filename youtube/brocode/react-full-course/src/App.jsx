@@ -1,11 +1,9 @@
 import React from "react";
-import Student from "./Student";
+import UserGreeting from "./UserGreeting.jsx";
 const App = () => {
   return (
     <>
-      <Student name="Spongebob" age={30} isStudent={true} />
-      <Student name="Patrick" age={35} isStudent={false} />
-      <Student />
+      <UserGreeting username={"test-username"} isLoggedIn={true} />
     </>
   );
 };
