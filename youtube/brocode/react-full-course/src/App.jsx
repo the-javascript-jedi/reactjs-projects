@@ -1,12 +1,12 @@
 import React from "react";
 import MyComponent from "./MyComponent";
-import ColorPicker from "./ColorPicker";
+// import ColorPicker from "./ColorPicker";
 const App = () => {
   return (
     <>
       <MyComponent />
       {/* color picker */}
-      <ColorPicker />
+      {/* <ColorPicker /> */}
     </>
   );
 };

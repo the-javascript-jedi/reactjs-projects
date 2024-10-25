@@ -1,76 +1,49 @@
 import React, { useState } from "react";
 
 const MyComponent = () => {
-  // input state
-  const [name, setName] = useState("");
-  // select state
-  const [payment, setPayment] = useState("Mastercard");
-  // radio button state
-  const [shipping, setShipping] = useState("PickUp");
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+  const [car, setCar] = useState({
+    year: 2024,
+    make: "Ford",
+    model: "Mustang",
+  });
+  const handleYearChange = (event) => {
+    // { year: 2024,make: "Ford", model: "Mustang",year:2025}--only latest value is taken
+    setCar((prevValue) => ({ ...prevValue, year: event.target.value }));
   };
-
-  const handlePaymentChange = (e) => {
-    setPayment(e.target.value);
+  const handleMakeChange = (event) => {
+    setCar((prevValue) => ({ ...prevValue, make: event.target.value }));
   };
-
-  const handleShippingChange = (e) => {
-    setShipping(e.target.value);
+  const handleModelChange = (event) => {
+    setCar((prevValue) => ({ ...prevValue, model: event.target.value }));
   };
   return (
     <>
-      {/* input */}
       <div>
-        <input type="text" onChange={(e) => handleNameChange(e)} />
-        <br />
-        Name: {name}
-      </div>
-      {/* select */}
-      <div>
-        <select
-          value={payment}
+        <p>
+          Your Favourite Car is {car.year} {car.make} {car.model}
+        </p>
+        <input
+          type="number"
+          value={car.year}
           onChange={(e) => {
-            handlePaymentChange(e);
+            handleYearChange(e);
           }}
-        >
-          <option value="">Select a Value</option>
-          <option value="Visa">Visa</option>
-          <option value="Mastercard">Mastercard</option>
-          <option value="Giftcard">Giftcard</option>
-        </select>
-        <br />
-        <div>{payment}</div>
+        />
+        <input
+          type="text"
+          value={car.make}
+          onChange={(e) => {
+            handleMakeChange(e);
+          }}
+        />
+        <input
+          type="text"
+          value={car.model}
+          onChange={(e) => {
+            handleModelChange(e);
+          }}
+        />
       </div>
-      {/* radio button */}
-      <div>
-        <label>
-          <input
-            type="radio"
-            value="Delivery"
-            onChange={(e) => {
-              handleShippingChange(e);
-            }}
-            checked={shipping == "Delivery"}
-          />{" "}
-          Delivery
-        </label>
-      </div>
-      <div>
-        <label>
-          <input
-            type="radio"
-            value="PickUp"
-            onChange={(e) => {
-              handleShippingChange(e);
-            }}
-            checked={shipping == "PickUp"}
-          />{" "}
-          Pick Up
-        </label>
-      </div>
-      <div>Shipping: {shipping}</div>
     </>
   );
 };
