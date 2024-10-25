@@ -1,10 +1,10 @@
 import React from "react";
-import MyComponent from "./MyComponent";
+import ArrayOfObjects from "./ArrayOfObjects.jsx";
 // import ColorPicker from "./ColorPicker";
 const App = () => {
   return (
     <>
-      <MyComponent />
+      <ArrayOfObjects />
       {/* color picker */}
       {/* <ColorPicker /> */}
     </>
