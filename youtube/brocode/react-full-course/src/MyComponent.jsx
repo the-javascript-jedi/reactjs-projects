@@ -1,50 +1,38 @@
 import React, { useState } from "react";
 
 const MyComponent = () => {
-  const [car, setCar] = useState({
-    year: 2024,
-    make: "Ford",
-    model: "Mustang",
-  });
-  const handleYearChange = (event) => {
-    // { year: 2024,make: "Ford", model: "Mustang",year:2025}--only latest value is taken
-    setCar((prevValue) => ({ ...prevValue, year: event.target.value }));
+  const [foods, setFoods] = useState(["Apple", "Orange", "Banana"]);
+  const handleClick = () => {
+    const newFood = document.getElementById("foodInput").value;
+    setFoods((prevState) => [...prevState, newFood]);
+    document.getElementById("foodInput").value = "";
   };
-  const handleMakeChange = (event) => {
-    setCar((prevValue) => ({ ...prevValue, make: event.target.value }));
-  };
-  const handleModelChange = (event) => {
-    setCar((prevValue) => ({ ...prevValue, model: event.target.value }));
+
+  const removeElements = (index) => {
+    const updatedFoods = [...foods]; // Create a copy of the array
+    updatedFoods.splice(index, 1); // Remove the item at the specified index
+    setFoods(updatedFoods); // Set the updated array as the new state
   };
   return (
-    <>
-      <div>
-        <p>
-          Your Favourite Car is {car.year} {car.make} {car.model}
-        </p>
-        <input
-          type="number"
-          value={car.year}
-          onChange={(e) => {
-            handleYearChange(e);
-          }}
-        />
-        <input
-          type="text"
-          value={car.make}
-          onChange={(e) => {
-            handleMakeChange(e);
-          }}
-        />
-        <input
-          type="text"
-          value={car.model}
-          onChange={(e) => {
-            handleModelChange(e);
-          }}
-        />
-      </div>
-    </>
+    <div>
+      <h2>List Of Food</h2>
+      <ul>
+        {foods.map((val, index) => (
+          <li key={index}>
+            {val} <span onClick={() => removeElements(index)}>X</span>
+          </li>
+        ))}
+      </ul>
+      <input type="text" placeholder="Enter Food" id="foodInput" />
+      <button
+        onClick={() => {
+          handleClick();
+        }}
+      >
+        Add Food
+      </button>
+    </div>
   );
 };
+
 export default MyComponent;
