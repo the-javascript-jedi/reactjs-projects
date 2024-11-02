@@ -1,12 +1,10 @@
 import React from "react";
-import ArrayOfObjects from "./ArrayOfObjects.jsx";
-// import ColorPicker from "./ColorPicker";
+import TodoList from "./TodoApp/TodoList";
+
 const App = () => {
   return (
     <>
-      <ArrayOfObjects />
-      {/* color picker */}
-      {/* <ColorPicker /> */}
+      <TodoList />
     </>
   );
 };
