@@ -1,10 +1,10 @@
 import React from "react";
-import DigitalClock from "./DigitalClock/DigitalClock";
+import ComponentA from "./useContext/ComponentA";
 
 const App = () => {
   return (
     <>
-      <DigitalClock />
+      <ComponentA />
     </>
   );
 };
