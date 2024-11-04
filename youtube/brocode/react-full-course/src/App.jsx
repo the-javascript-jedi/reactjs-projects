@@ -1,10 +1,10 @@
 import React from "react";
-import TodoList from "./TodoApp/TodoList";
+import WindowWidth from "./WindowWidth";
 
 const App = () => {
   return (
     <>
-      <TodoList />
+      <WindowWidth />
     </>
   );
 };
