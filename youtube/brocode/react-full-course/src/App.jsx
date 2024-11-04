@@ -1,10 +1,10 @@
 import React from "react";
-import WindowWidth from "./WindowWidth";
+import DigitalClock from "./DigitalClock/DigitalClock";
 
 const App = () => {
   return (
     <>
-      <WindowWidth />
+      <DigitalClock />
     </>
   );
 };
