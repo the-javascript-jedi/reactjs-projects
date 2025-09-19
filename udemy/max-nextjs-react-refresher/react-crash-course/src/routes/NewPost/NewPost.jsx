@@ -1,8 +1,9 @@
 import classes from "./NewPost.module.css";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import { Link } from "react-router-dom";
 
-function NewPost({ onAddPost, onCancel }) {
+function NewPost({ onAddPost }) {
   function submitHandler() {}
   const [enteredBody, setEnteredBody] = useState("");
   const [enteredAuthor, setEnteredAuthor] = useState("");
@@ -22,7 +23,6 @@ function NewPost({ onAddPost, onCancel }) {
     };
     console.log("postData", postData);
     onAddPost(postData);
-    onCancel();
   }
 
   return (
@@ -42,9 +42,9 @@ function NewPost({ onAddPost, onCancel }) {
           />
         </p>
         <p className={classes.actions}>
-          <button type="button" onClick={onCancel}>
+          <Link to=".." type="button">
             Cancel
-          </button>
+          </Link>
           <button>Submit</button>
         </p>
       </form>
