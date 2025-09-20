@@ -5,6 +5,7 @@ const Modal = ({ children }) => {
   const navigate = useNavigate();
 
   function closeHandler() {
+    console.log("close fired");
     navigate("..");
   }
 
