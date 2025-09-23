@@ -22,7 +22,7 @@ function NewPost({ onAddPost }) {
       author: enteredAuthor,
     };
     console.log("postData", postData);
-    onAddPost(postData);
+    // onAddPost(postData);
   }
 
   return (

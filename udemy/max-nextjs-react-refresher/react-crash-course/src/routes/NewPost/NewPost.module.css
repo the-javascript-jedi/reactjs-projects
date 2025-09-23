@@ -2,6 +2,10 @@
   background-color: #6233b9;
   padding: 1rem;
   width: 20rem;
+  /* margin: 2rem auto; */
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding-right: 40px;
 }
 
 .form label {
@@ -26,7 +30,6 @@
 .actions {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
   gap: 0.5rem;
 }
 
@@ -44,12 +47,10 @@
   background-color: #23014a;
 }
 
-.actions a {
+.actions button[type="button"] {
   background-color: transparent;
-  text-decoration: none;
-  color: #e5d5f7;
 }
 
-.actions a:hover {
+.actions button[type="button"]:hover {
   color: #d1bee6;
 }
