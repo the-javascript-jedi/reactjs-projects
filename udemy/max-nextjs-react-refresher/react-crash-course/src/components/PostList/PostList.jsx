@@ -7,7 +7,7 @@ import { useState } from "react";
 const PostList = () => {
   const [enteredBody, setEnteredBody] = useState("");
   const [enteredAuthor, setEnteredAuthor] = useState("");
-  const [modalIsVisible, setModalIsVisible] = useStae(true);
+  const [modalIsVisible, setModalIsVisible] = useState(true);
 
   function bodyChangeHandler(event) {
     setEnteredBody(event.target.value);
@@ -17,14 +17,20 @@ const PostList = () => {
     setEnteredAuthor(event.target.value);
   }
 
+  function hideModalHandler() {
+    setModalIsVisible(false);
+  }
+
   return (
     <>
-      <Modal>
-        <NewPost
-          onBodyChange={bodyChangeHandler}
-          onAuthorChange={authorChangeHandler}
-        />
-      </Modal>
+      {modalIsVisible && (
+        <Modal onClose={hideModalHandler}>
+          <NewPost
+            onBodyChange={bodyChangeHandler}
+            onAuthorChange={authorChangeHandler}
+          />
+        </Modal>
+      )}
       <ol className={classes.posts}>
         <li>
           <Post author={enteredAuthor} body={enteredBody} />
