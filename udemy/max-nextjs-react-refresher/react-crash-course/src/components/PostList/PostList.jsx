@@ -3,11 +3,11 @@ import Post from "../Post/Post";
 import Modal from "../Modal/Modal";
 import classes from "./Postlist.module.css";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const PostList = () => {
+const PostList = ({ isPosting, onStopPosting }) => {
   const [enteredBody, setEnteredBody] = useState("");
   const [enteredAuthor, setEnteredAuthor] = useState("");
-  const [modalIsVisible, setModalIsVisible] = useState(true);
 
   function bodyChangeHandler(event) {
     setEnteredBody(event.target.value);
@@ -17,14 +17,10 @@ const PostList = () => {
     setEnteredAuthor(event.target.value);
   }
 
-  function hideModalHandler() {
-    setModalIsVisible(false);
-  }
-
   return (
     <>
-      {modalIsVisible && (
-        <Modal onClose={hideModalHandler}>
+      {isPosting && (
+        <Modal OnClose={onStopPosting}>
           <NewPost
             onBodyChange={bodyChangeHandler}
             onAuthorChange={authorChangeHandler}
@@ -47,5 +43,4 @@ const PostList = () => {
     </>
   );
 };
-
 export default PostList;
