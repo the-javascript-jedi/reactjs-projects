@@ -6,31 +6,20 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 const PostList = ({ isPosting, onStopPosting }) => {
-  const [enteredBody, setEnteredBody] = useState("");
-  const [enteredAuthor, setEnteredAuthor] = useState("");
+  const [posts, setPosts] = useState([]);
 
-  function bodyChangeHandler(event) {
-    setEnteredBody(event.target.value);
-  }
-
-  function authorChangeHandler(event) {
-    setEnteredAuthor(event.target.value);
+  function addPostHandler(postData) {
+    setPosts((existingPosts) => [postData, ...existingPosts]);
   }
 
   return (
     <>
       {isPosting && (
         <Modal OnClose={onStopPosting}>
-          <NewPost
-            onBodyChange={bodyChangeHandler}
-            onAuthorChange={authorChangeHandler}
-          />
+          <NewPost onCancel={onStopPosting} onAddPost={addPostHandler} />
         </Modal>
       )}
       <ol className={classes.posts}>
-        <li>
-          <Post author={enteredAuthor} body={enteredBody} />
-        </li>
         <li>
           {" "}
           <Post author={"batman"} body="python" />
