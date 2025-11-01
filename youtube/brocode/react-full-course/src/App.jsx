@@ -1,11 +1,10 @@
 import React from "react";
-import ComponentA from "./useContext/ComponentA";
-import UseRef from "./UseRef";
+import StopWatch from "StopWatch";
 
 const App = () => {
   return (
     <>
-      <UseRef />
+      <StopWatch />
     </>
   );
 };
