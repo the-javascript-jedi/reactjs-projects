@@ -7,7 +7,13 @@ const FeedbackList = (props) => {
         (props.feedBackData.length == 0 && <p>No data found</p>)}
       {/* FeedbackItem */}
       {props.feedBackData.map((feedBackData, index) => (
-        <FeedbackItem itemData={feedBackData} key={index}></FeedbackItem>
+        <FeedbackItem
+          itemData={feedBackData}
+          key={index}
+          handleDelete={(id) => {
+            props.appHandleDeleteFeedback(id);
+          }}
+        ></FeedbackItem>
       ))}
     </div>
   );
