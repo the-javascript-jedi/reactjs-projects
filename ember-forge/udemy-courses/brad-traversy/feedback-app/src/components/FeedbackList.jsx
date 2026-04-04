@@ -1,20 +1,22 @@
 import FeedbackItem from "./FeedbackItem";
 
 const FeedbackList = (props) => {
+  console.log("props.feedBackData", props.feedBackData);
   return (
     <div>
-      {!props.feedback ||
-        (props.feedBackData.length == 0 && <p>No data found</p>)}
-      {/* FeedbackItem */}
-      {props.feedBackData.map((feedBackData, index) => (
-        <FeedbackItem
-          itemData={feedBackData}
-          key={index}
-          handleDelete={(id) => {
-            props.appHandleDeleteFeedback(id);
-          }}
-        ></FeedbackItem>
-      ))}
+      {props.feedBackData && props.feedBackData.length > 0 ? (
+        props.feedBackData.map((feedBackData, index) => (
+          <FeedbackItem
+            itemData={feedBackData}
+            key={feedBackData.id}
+            handleDelete={(id) => {
+              props.appHandleDeleteFeedback(id);
+            }}
+          ></FeedbackItem>
+        ))
+      ) : (
+        <p>No data found</p>
+      )}
     </div>
   );
 };

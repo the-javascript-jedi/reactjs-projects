@@ -13,5 +13,4 @@ const FeedbackItem = (props) => {
     </div>
   );
 };
-
 export default FeedbackItem;
