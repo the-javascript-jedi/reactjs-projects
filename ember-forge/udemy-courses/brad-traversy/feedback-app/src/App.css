@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.about-icon {
+  position: absolute;
+  right: 30px;
+  top: 0;
+  font-size: 30px;
+}

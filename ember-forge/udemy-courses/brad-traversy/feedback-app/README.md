@@ -15,3 +15,5 @@ npm run dev
 GIT_AUTHOR_DATE="2026-04-03T10:00:00+05:30" \
 GIT_COMMITTER_DATE="2026-04-03T10:00:00+05:30" \
 git commit -m "Missed commit"
+
+npm i react-router-dom
