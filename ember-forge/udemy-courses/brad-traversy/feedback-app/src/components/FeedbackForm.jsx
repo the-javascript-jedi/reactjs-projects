@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addFeedback } from "../features/feedback/feedbackSlice";
 import Button from "./shared/Button";
 import RatingSelect from "./RatingSelect";
 import { v4 as uuidv4 } from "uuid";
 
-const FeedbackForm = ({ appAddNewFeedback }) => {
+const FeedbackForm = () => {
+  const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [isBtnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
@@ -34,7 +37,7 @@ const FeedbackForm = ({ appAddNewFeedback }) => {
       rating: rating,
     };
     // console.log("newFeedback", newFeedback);
-    appAddNewFeedback(newFeedback);
+    dispatch(addFeedback(newFeedback));
     setText("");
     setRating(0);
     setMessage("");

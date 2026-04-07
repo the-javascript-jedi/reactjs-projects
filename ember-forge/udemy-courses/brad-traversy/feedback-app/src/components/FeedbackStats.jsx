@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const FeedbackStats = ({ feedBackData }) => {
+const FeedbackStats = () => {
+  const feedBackData = useSelector((state) => state.feedback.feedback);
   console.log("feedBackData", feedBackData);
   let average =
     feedBackData.reduce((acc, cur) => {
