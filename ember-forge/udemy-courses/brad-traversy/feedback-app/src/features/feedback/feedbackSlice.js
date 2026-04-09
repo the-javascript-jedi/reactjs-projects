@@ -15,13 +15,29 @@ const feedbackSlice = createSlice({
     addFeedback: (state, action) => {
       state.feedback = [action.payload, ...state.feedback];
     },
+
     deleteFeedback: (state, action) => {
       state.feedback = state.feedback.filter(
         (item) => item.id !== action.payload,
       );
     },
+
+    updateFeedback: (state, action) => {
+      state.feedback = state.feedback.map((item) =>
+        item.id === action.payload.id
+          ? {
+              ...item,
+              text: action.payload.text,
+              rating: action.payload.rating,
+              edit: false, // optional: reset edit flag
+            }
+          : item,
+      );
+    },
   },
 });
 
-export const { addFeedback, deleteFeedback } = feedbackSlice.actions;
+export const { addFeedback, deleteFeedback, updateFeedback } =
+  feedbackSlice.actions;
+
 export default feedbackSlice.reducer;
