@@ -1,0 +1,23 @@
+import React from "react";
+import { useSelector } from "react-redux";
+
+const FeedbackStats = () => {
+  const feedBackData = useSelector((state) => state.feedback.feedback);
+  console.log("feedBackData", feedBackData);
+  let average =
+    feedBackData.reduce((acc, cur) => {
+      return acc + cur.rating;
+    }, 0) / feedBackData.length;
+
+  return (
+    <div>
+      <p>FeedbackStats</p>
+      <div>
+        <span>Reviews: {feedBackData.length} </span>
+        <span>Average Review: {isNaN(average) ? 0 : average}</span>
+      </div>
+    </div>
+  );
+};
+
+export default FeedbackStats;
