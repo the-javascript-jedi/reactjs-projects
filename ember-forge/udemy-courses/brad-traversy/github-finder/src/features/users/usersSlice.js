@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
   async (_, thunkAPI) => {
+    //  `${import.meta.env.VITE_GITHUB_URL}/search/users?q=brad&per_page=10`,
     const response = await fetch(`${import.meta.env.VITE_GITHUB_URL}/users`, {
       headers: {
         Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
