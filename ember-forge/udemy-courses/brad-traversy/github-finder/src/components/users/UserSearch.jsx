@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { searchUsers, clearUsers } from "../../features/users/usersSlice";
 
 const UserSearch = () => {
   const [text, setText] = useState("");
+  const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
 
   const handleSubmit = (e) => {
@@ -10,11 +12,11 @@ const UserSearch = () => {
     if (text === "") {
       alert("Please enter something");
     } else {
-      console.log("search users", text);
+      dispatch(searchUsers(text));
       setText("");
     }
   };
-  console.log("users", users);
+
   return (
     <div>
       <div>
@@ -40,7 +42,13 @@ const UserSearch = () => {
       </div>
       <div>
         {users && users.length > 0 && (
-          <button className="btn btn-ghost btn-lg" onClick={() => setText("")}>
+          <button
+            className="btn btn-ghost btn-lg"
+            onClick={() => {
+              dispatch(clearUsers());
+              setText("");
+            }}
+          >
             Clear
           </button>
         )}
