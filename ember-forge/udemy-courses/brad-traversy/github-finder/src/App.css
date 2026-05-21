@@ -1,2 +1,8 @@
 @import "tailwindcss";
 @plugin "daisyui";
+.alert-container {
+  display: none;
+}
+.alert-container.alert-error {
+  display: block;
+}

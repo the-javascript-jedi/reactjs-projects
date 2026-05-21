@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchUsers, clearUsers } from "../../features/users/usersSlice";
+import { setAlert } from "../../features/users/alertSlice";
 
 const UserSearch = () => {
   const [text, setText] = useState("");
@@ -10,8 +11,9 @@ const UserSearch = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text === "") {
-      alert("Please enter something");
+      dispatch(setAlert({ msg: "Please enter something", type: "error" }));
     } else {
+      dispatch(setAlert({ msg: "", type: "" }));
       dispatch(searchUsers(text));
       setText("");
     }
