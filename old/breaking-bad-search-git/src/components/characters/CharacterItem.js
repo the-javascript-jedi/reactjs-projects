@@ -4,7 +4,7 @@ const CharacterItem = ({ item }) => {
     <div className='card'>
       <div className='card-inner'>
         <div className='card-front'>
-          <img src={item.img} alt='' />
+          <img src={item.image_url} alt='' />
         </div>
         <div className='card-back'>
           <h1>{item.name}</h1>
@@ -13,13 +13,13 @@ const CharacterItem = ({ item }) => {
               <strong>Actor Name:</strong> {item.portrayed}
             </li>
             <li>
-              <strong>Nickname:</strong> {item.nickname}
+              <strong>Full Name:</strong> {item.full_name}
             </li>
             <li>
-              <strong>Birthday:</strong> {item.birthday}
+              <strong>Birthday:</strong> {item.birth_date}
             </li>
             <li>
-              <strong>Status:</strong> {item.status}
+              <strong>Series:</strong> {item.series}
             </li>
           </ul>
         </div>

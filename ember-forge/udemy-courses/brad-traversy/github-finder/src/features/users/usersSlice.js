@@ -51,8 +51,64 @@ export const searchUsers = createAsyncThunk(
   },
 );
 
+export const getSingleUser = createAsyncThunk(
+  "users/getSingleUser",
+  async (loginName, thunkAPI) => {
+    // 👈 add thunkAPI
+    const response = await fetch(
+      `${import.meta.env.VITE_GITHUB_URL}/users/${loginName}`,
+      {
+        headers: {
+          Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+        },
+      },
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return thunkAPI.rejectWithValue(
+        data.message || "Failed to fetch GitHub users",
+      );
+    }
+
+    return data; // 👈 also fixed: was returning data.items (wrong for a single user)
+  },
+);
+
+export const getUserRepos = createAsyncThunk(
+  "users/getuserRepos",
+  async (loginName, thunkAPI) => {
+    const params = new URLSearchParams({
+      sort: "created",
+      per_page: 10,
+    });
+    // 👈 add thunkAPI
+    const response = await fetch(
+      `${import.meta.env.VITE_GITHUB_URL}/users/${loginName}/repos?${params}`,
+      {
+        headers: {
+          Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+        },
+      },
+    );
+
+    const data = await response.json();
+    console.log("data-repos", data);
+    if (!response.ok) {
+      return thunkAPI.rejectWithValue(
+        data.message || "Failed to fetch GitHub users",
+      );
+    }
+
+    return data; // 👈 also fixed: was returning data.items (wrong for a single user)
+  },
+);
+
 const initialState = {
   users: [],
+  user: {},
+  repos: [],
   loading: false,
   error: null,
 };
@@ -92,6 +148,31 @@ const usersSlice = createSlice({
       .addCase(searchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Unable to load users";
+      })
+      .addCase(getSingleUser.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getSingleUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(getSingleUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Unable to load user";
+      })
+      .addCase(getUserRepos.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getUserRepos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.repos = action.payload;
+      })
+      .addCase(getUserRepos.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
